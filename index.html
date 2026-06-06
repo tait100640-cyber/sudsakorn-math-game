@@ -150,9 +150,50 @@
     }
     .tool-btn:hover { background: rgba(255,215,0,0.3); transform: scale(1.1); }
 
+    /* หน้าจอโหลดทรัพยากร (p5.js จะซ่อนอัตโนมัติเมื่อโหลดเสร็จ) */
+    #p5_loading {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background-color: #000; z-index: 99999;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      color: #FFD700; font-family: 'Kanit', sans-serif;
+    }
+    .loading-text {
+      font-size: 32px; margin-bottom: 20px; text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+      animation: blink 1.5s infinite;
+    }
+    .progress-container {
+      width: 50%; max-width: 600px; height: 25px;
+      border: 3px solid #FFD700; border-radius: 15px;
+      overflow: hidden; background: rgba(0,0,0,0.5);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    }
+    .progress-bar {
+      width: 100%; height: 100%;
+      background: repeating-linear-gradient(
+        45deg,
+        #FFD700,
+        #FFD700 20px,
+        #B8860B 20px,
+        #B8860B 40px
+      );
+      background-size: 56px 100%;
+      animation: moveStripes 1s linear infinite;
+    }
+    @keyframes moveStripes {
+      0% { background-position: 0 0; }
+      100% { background-position: 56px 0; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- หน้าจอโหลดทรัพยากร -->
+  <div id="p5_loading">
+    <div class="loading-text">กำลังดาวน์โหลดทรัพยากร...</div>
+    <div class="progress-container">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
 
   <div id="global-tools">
     <button class="tool-btn" onclick="toggleFullscreen()" title="เต็มจอ">🖥️</button>
@@ -161,7 +202,7 @@
 
   <div id="screen-1" class="screen active">
     <video id="vid1" class="bg-video" src="intro1.mp4" loop muted autoplay playsinline></video>
-    <img src="logo.png" id="game-logo" alt="Logo สุดสาคร">
+    <img src="logo.PNG" id="game-logo" alt="Logo สุดสาคร">
     <div id="start-text" onclick="goToLogin(event)">เริ่มเกม</div>
   </div>
 
