@@ -369,27 +369,43 @@ let lastBonusX = -1, lastBonusY = -1;
 let prevMouseIsPressed = false; 
 let lastSecondMillis = 0; 
 
+function updateProgress() {
+  if (typeof window.loadedAssets === 'undefined') {
+    window.loadedAssets = 0;
+    window.totalAssets = 16; 
+  }
+  window.loadedAssets++;
+  let percent = Math.floor((window.loadedAssets / window.totalAssets) * 100);
+  if (percent > 100) percent = 100;
+  
+  let progressBar = document.querySelector('.progress-bar');
+  let percentText = document.getElementById('loading-percent');
+  
+  if (progressBar) progressBar.style.width = percent + '%';
+  if (percentText) percentText.innerText = percent + '%';
+}
+
 function preload() {
   bodyPose = ml5.bodyPose();
-  bgm = loadSound('backgroundsound.mp3'); 
-  gameBgm = loadSound('gamesound.mp3');
-  bonusBgm = loadSound('soundbonus.mp3'); 
+  bgm = loadSound('backgroundsound.mp3', updateProgress); 
+  gameBgm = loadSound('gamesound.mp3', updateProgress);
+  bonusBgm = loadSound('soundbonus.mp3', updateProgress); 
   
-  btnSoundStart = loadSound('s02.mp3'); 
-  btnSoundLogin = loadSound('s3.mp3'); 
-  btnSoundClick = loadSound('click.mp3');
-  soundCorrect = loadSound('c.mp3');
-  soundWrong = loadSound('w.mp3');
-  soundWhistle = loadSound('whistle.mp3'); 
+  btnSoundStart = loadSound('s02.mp3', updateProgress); 
+  btnSoundLogin = loadSound('s3.mp3', updateProgress); 
+  btnSoundClick = loadSound('click.mp3', updateProgress);
+  soundCorrect = loadSound('c.mp3', updateProgress);
+  soundWrong = loadSound('w.mp3', updateProgress);
+  soundWhistle = loadSound('whistle.mp3', updateProgress); 
   
-  mapImg = loadImage('map.jpeg');
-  logoImg = loadImage('logo.png');
-  rulesImg = loadImage('rules.png');
+  mapImg = loadImage('map.jpeg', updateProgress);
+  logoImg = loadImage('logo.png', updateProgress);
+  rulesImg = loadImage('rules.png', updateProgress);
   
-  bgPlus = loadImage('1.jpeg');
-  bgMinus = loadImage('2.jpeg');
-  bgMultiply = loadImage('3.jpeg');
-  bgDivide = loadImage('4.jpeg');
+  bgPlus = loadImage('1.jpeg', updateProgress);
+  bgMinus = loadImage('2.jpeg', updateProgress);
+  bgMultiply = loadImage('3.jpeg', updateProgress);
+  bgDivide = loadImage('4.jpeg', updateProgress);
 }
 
 function setup() {
