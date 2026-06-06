@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>สุดสาคร ตอน ตะลุยพิภพคณิตศาสตร์</title>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script>
+  <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400&family=Mitr:wght@500&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      margin: 0; padding: 0; overflow: hidden; background-color: #000;
+      font-family: 'Kanit', sans-serif; 
+      font-weight: 400; 
+    }
+
+    #game-canvas { display: none; }
+
+    .screen {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      display: none; justify-content: center; align-items: center; z-index: 10;
+    }
+    .screen.active { display: flex; flex-direction: column; }
+
+    .bg-video {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: -1; filter: brightness(0.7);
+    }
+
+    #game-logo {
+      position: absolute;
+      bottom: 28%; 
+      left: 0; 
+      right: 0; 
+      margin: auto; 
+      width: 95%; 
+      max-width: 1200px; 
+      max-height: 60vh; 
+      object-fit: contain; 
+      z-index: 20;
+      animation: floatLogo 3s ease-in-out infinite;
+      filter: drop-shadow(0px 0px 20px rgba(0, 255, 255, 0.4)); 
+      will-change: transform;
+      transform: translateZ(0); 
+    }
+
+    @keyframes floatLogo {
+      0% { transform: translate3d(0, 0px, 0); }
+      50% { transform: translate3d(0, -25px, 0); } 
+      100% { transform: translate3d(0, 0px, 0); }
+    }
+
+    /* ฉาก 1: ปุ่มเริ่มเกม (ธีม ดำ-ทอง) */
+    #start-text {
+      position: absolute; 
+      bottom: 12%; 
+      left: 0; 
+      right: 0; 
+      margin: auto; 
+      width: fit-content; 
+      font-size: 48px; 
+      font-family: 'Mitr', sans-serif; 
+      font-weight: 500; 
+      letter-spacing: 2px; 
+      color: #FFD700; 
+      text-shadow: 0 0 20px #FFD700, 0 0 40px #FFD700; 
+      cursor: pointer; 
+      animation: blink 1.5s infinite;
+      padding: 15px 50px; 
+      background: rgba(0, 0, 0, 0.85); 
+      border-radius: 50px; 
+      border: 5px solid #FFD700; 
+      z-index: 20;
+      backdrop-filter: blur(5px);
+      transition: 0.3s;
+    }
+    #start-text:hover {
+      background: rgba(255, 215, 0, 0.15); 
+      transform: scale(1.05);
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* ฉาก 2: กล่องล็อกอิน (คุมโทน ดำ-ทอง) */
+    .login-box {
+      background: rgba(0, 0, 0, 0.85); padding: 50px; border-radius: 20px;
+      text-align: center; border: 2px solid #FFD700; box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+      opacity: 0; pointer-events: none; transition: opacity 1.5s ease-in-out;
+      z-index: 20;
+      width: 60%; /* ปรับความกว้างกล่องให้พอดีช่องกรอก 2 ช่อง */
+      max-width: 800px;
+    }
+    .login-box.show { opacity: 1; pointer-events: auto; }
+    
+    .login-box h1 { 
+      margin-top: 0; font-size: 48px; color: #FFD700; 
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); letter-spacing: 1px; 
+      margin-bottom: 30px; 
+      font-weight: 400; 
+    }
+
+    /* 🌟 จัดเรียงช่องกรอก 2 ช่องให้อยู่ข้างกัน */
+    .input-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+    }
+    
+    .login-box input { 
+      width: 45%; padding: 15px; font-size: 24px; 
+      border-radius: 10px; text-align: center; 
+      font-family: 'Kanit', sans-serif; 
+      font-weight: 400; 
+      background: rgba(0, 0, 0, 0.6); 
+      color: #FFD700; 
+      border: 2px solid #FFD700; 
+    }
+    .login-box input::placeholder {
+      color: rgba(255, 215, 0, 0.5); 
+    }
+    .login-box input:focus {
+      outline: none;
+      box-shadow: 0 0 10px #FFD700;
+    }
+    
+    .login-box button { 
+      background: rgba(0, 0, 0, 0.8); color: #FFD700; padding: 15px 40px; font-size: 26px; 
+      font-weight: 400; 
+      border: 2px solid #FFD700; border-radius: 10px; cursor: pointer; transition: 0.3s; 
+      font-family: 'Kanit', sans-serif; letter-spacing: 1px;
+    }
+    .login-box button:hover { 
+      background: #FFD700; color: #000; 
+      transform: scale(1.05); box-shadow: 0 0 15px #FFD700; 
+    }
+
+    /* ปุ่มมุมขวาล่าง เปลี่ยนกรอบและเอฟเฟกต์เป็นสีทอง */
+    #global-tools {
+      position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; gap: 15px;
+    }
+    .tool-btn {
+      background: rgba(0,0,0,0.6); color: white; border: 2px solid #FFD700;
+      border-radius: 50%; width: 60px; height: 60px; font-size: 26px;
+      cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.3s;
+    }
+    .tool-btn:hover { background: rgba(255,215,0,0.3); transform: scale(1.1); }
+
+  </style>
+</head>
+<body>
+
+  <div id="global-tools">
+    <button class="tool-btn" onclick="toggleFullscreen()" title="เต็มจอ">🖥️</button>
+    <button id="sound-btn" class="tool-btn" onclick="toggleSound()" title="เปิด/ปิดเสียงดนตรี">🔊</button>
+  </div>
+
+  <div id="screen-1" class="screen active">
+    <video id="vid1" class="bg-video" src="intro1.mp4" loop muted autoplay playsinline></video>
+    <img src="logo.PNG" id="game-logo" alt="Logo สุดสาคร">
+    <div id="start-text" onclick="goToLogin(event)">เริ่มเกม</div>
+  </div>
+
+  <div id="screen-2" class="screen">
+    <video id="vid2" class="bg-video" src="intro2.mp4" loop muted playsinline></video>
+    <div id="login-box" class="login-box">
+      <h1>สุดสาคร ตอน ทะลุมิติพิภพคณิตศาสตร์</h1>
+      
+      <!-- 🌟 แบ่งเป็น 2 ช่องเรียงคู่กัน -->
+      <div class="input-group">
+        <input type="text" id="playerName" placeholder="พิมพ์ชื่อผู้กล้า...">
+        <input type="text" id="schoolName" placeholder="พิมพ์ชื่อโรงเรียน...">
+      </div>
+
+      <br>
+      <button type="button" onclick="submitLogin()">เข้าสู่พิภพคณิตศาสตร์</button>
+    </div>
+  </div>
+
+  <div id="screen-3" class="screen">
+    <video id="vid3" class="bg-video" src="intro3.mp4" muted playsinline></video>
+  </div>
+
+  <script src="sketch.js"></script>
+</body>
+</html>
