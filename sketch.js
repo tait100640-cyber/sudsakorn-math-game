@@ -361,6 +361,12 @@ let selectedCity = null;
 let mathProblem = { equation: "", answer: 0 };
 let bubbles = [];
 
+let hasSeenSummaryThisSession = false;
+function updateAllTownsCompleted() {
+  allTownsCompleted = completedTowns.plus && completedTowns.minus && completedTowns.multiply && completedTowns.divide;
+  return allTownsCompleted;
+}
+
 let bonusMode = "none"; 
 let bonusTargets = []; 
 let trapTargets = []; 
@@ -725,16 +731,16 @@ function drawLives() {
   
   let centerX = boxX + boxW / 2;
   let centerY = boxY + boxH / 2;
-  let gap = 30; 
-
+  let heartsStr = "";
   for (let i = 0; i < 5; i++) {
-    let heartX = centerX + (i - 2) * gap;
     if (i < playerLives) {
-      text("❤️", heartX, centerY + 2);
+      heartsStr += "❤️ ";
     } else {
-      text("🖤", heartX, centerY + 2);
+      heartsStr += "🖤 ";
     }
   }
+  
+  text(heartsStr.trim(), centerX, centerY + 2);
 
   pop();
 }
@@ -825,6 +831,13 @@ function draw() {
       image(mapImg, 0, 0, width, height); 
     }
     drawLeaderboard(activeHitboxes);
+    drawPiPCamera(); 
+  }
+  else if (currentStage === 10) {
+    if (mapImg) {
+      image(mapImg, 0, 0, width, height); 
+    }
+    drawSkillSummary(activeHitboxes);
     drawPiPCamera(); 
   }
 
@@ -922,7 +935,7 @@ function drawMapSelection(activeHitboxes) {
     text(welcomeText, width / 2 - tw / 2, height * 0.45 - 3); 
   }
 
-  let allTownsCompleted = completedTowns.plus && completedTowns.minus && completedTowns.multiply && completedTowns.divide;
+  updateAllTownsCompleted();
   let clickedButtonId = null;
   let currentButtons = (mapMode === 'main') ? mainButtons : levelButtons;
 
@@ -1037,7 +1050,7 @@ function drawMapSelection(activeHitboxes) {
       if (allTownsCompleted) {
         // 🌟 เล่น YouTube Popup สำหรับตอนจบ
         openYouTubePopup('ubIp5k45z0w', () => {
-          currentStage = 4;
+          currentStage = 10;
           mapMode = 'main';
         });
       } else {
@@ -1470,8 +1483,17 @@ function drawGameOver(activeHitboxes) {
 
   if (isClicked) {
     playInstantSound(btnSoundClick); 
-    currentStage = 4; 
-    mapMode = 'levels'; 
+    
+    updateAllTownsCompleted();
+    
+    if (allTownsCompleted && !hasSeenSummaryThisSession) {
+      currentStage = 10;
+      mapMode = 'main';
+      hasSeenSummaryThisSession = true;
+    } else {
+      currentStage = 4; 
+      mapMode = 'levels'; 
+    }
     restartMapMusic(); 
   }
 }
@@ -1565,4 +1587,194 @@ function calculateVideoCover() {
   let videoRatio = video.width / video.height; let screenRatio = width / height;
   if (screenRatio > videoRatio) { vW = width; vH = width / videoRatio; } else { vH = height; vW = height * videoRatio; }
   vX = (width - vW) / 2; vY = (height - vH) / 2;
+}
+
+function drawSkillSummary(activeHitboxes) {
+  fill(0, 220); rect(0, 0, width, height);
+
+  textSize(48); fill(255, 215, 0); textStyle(BOLD);
+  textAlign(CENTER, CENTER);
+  text("✨ สรุปทักษะคณิตศาสตร์ ✨", width / 2, height * 0.12);
+  textStyle(NORMAL);
+
+  let sP = highScores.plus || 0;
+  let sM = highScores.minus || 0;
+  let sX = highScores.multiply || 0;
+  let sD = highScores.divide || 0;
+  
+  let scores = [
+    { name: "บวก", val: sP },
+    { name: "ลบ", val: sM },
+    { name: "คูณ", val: sX },
+    { name: "หาร", val: sD }
+  ];
+  
+  let maxS = Math.max(...scores.map(s => s.val));
+  let minS = Math.min(...scores.map(s => s.val));
+  let bestNames = scores.filter(s => s.val === maxS).map(s => s.name);
+  let worstNames = scores.filter(s => s.val === minS).map(s => s.name);
+  
+  let bestStr = bestNames.join(', ');
+  let worstStr = worstNames.join(', ');
+  let bestSingle = bestNames[0];
+  let worstSingle = worstNames[0];
+  
+  let cx = width * 0.30;
+  let cy = height * 0.50;
+  let radius = Math.min(width, height) * 0.22;
+  
+  let sides = 4;
+  let maxAxisVal = 50; 
+  if (maxS > 50) maxAxisVal = maxS + 10; 
+  
+  // Draw web grids
+  for (let step = 1; step <= 5; step++) {
+    let r = radius * (step / 5);
+    noFill(); stroke(100, 100, 100, 150); strokeWeight(2);
+    beginShape();
+    for (let i = 0; i < sides; i++) {
+      let angle = -PI/2 + (TWO_PI / sides) * i;
+      vertex(cx + cos(angle) * r, cy + sin(angle) * r);
+    }
+    endShape(CLOSE);
+  }
+  
+  // Draw axes and labels
+  for (let i = 0; i < sides; i++) {
+    let angle = -PI/2 + (TWO_PI / sides) * i;
+    stroke(200); strokeWeight(2);
+    line(cx, cy, cx + cos(angle) * radius, cy + sin(angle) * radius);
+    
+    noStroke(); fill(255); textSize(24); textAlign(CENTER, CENTER);
+    let lx = cx + cos(angle) * (radius + 40);
+    let ly = cy + sin(angle) * (radius + 40);
+    text(scores[i].name, lx, ly);
+  }
+  
+  // Draw data polygon
+  fill(0, 255, 255, 120); stroke(0, 255, 255); strokeWeight(4);
+  beginShape();
+  for (let i = 0; i < sides; i++) {
+    let angle = -PI/2 + (TWO_PI / sides) * i;
+    let r = radius * (scores[i].val / maxAxisVal);
+    vertex(cx + cos(angle) * r, cy + sin(angle) * r);
+  }
+  endShape(CLOSE);
+
+  // Draw points
+  for (let i = 0; i < sides; i++) {
+    let angle = -PI/2 + (TWO_PI / sides) * i;
+    let r = radius * (scores[i].val / maxAxisVal);
+    fill(255, 215, 0); noStroke();
+    circle(cx + cos(angle) * r, cy + sin(angle) * r, 12);
+    
+    let nx = cx + cos(angle) * (r + 28);
+    let ny = cy + sin(angle) * (r + 28);
+    
+    let txt = scores[i].val.toString();
+    fill(0, 0, 0, 180); rectMode(CENTER);
+    rect(nx, ny, textWidth(txt) + 16, 28, 5);
+    rectMode(CORNER);
+    
+    fill(255); textSize(18); textAlign(CENTER, CENTER);
+    text(txt, nx, ny);
+  }
+
+  // Helper functions for tips
+  function getBestTip(skill) {
+    if (skill === "บวก") return "เทคนิค: คุณบวกเลขได้ไวมาก! ลองฝึกจับคู่ให้ครบ 10 ในใจเสมอจะยิ่งเร็วขึ้น";
+    if (skill === "ลบ") return "เทคนิค: การหักล้างของคุณแม่นยำมาก ลองใช้วิธี 'นับต่อ' ในเลขหลักร้อยดูสิ";
+    if (skill === "คูณ") return "เทคนิค: คุณมีพรสวรรค์การคูณ! ลองแยกตัวประกอบเวลาคูณเลขเยอะๆ ดูนะ";
+    if (skill === "หาร") return "เทคนิค: คุณแบ่งตัวเลขได้เฉียบขาดมาก เป็นทักษะขั้นสูงเลยทีเดียว!";
+    return "";
+  }
+  function getWorstTip(skill) {
+    if (skill === "บวก") return "คำแนะนำ: ลองจับคู่ตัวเลขให้ครบ 10 ก่อน แล้วค่อยบวกส่วนที่เหลือดูนะ";
+    if (skill === "ลบ") return "คำแนะนำ: ลองใช้วิธี 'นับจากตัวลบไปหาตัวตั้ง' จะช่วยให้คิดง่ายกว่าหักออก";
+    if (skill === "คูณ") return "คำแนะนำ: ท่องสูตรคูณแม่ 2-9 ให้คล่องเป็นจังหวะ จะช่วยให้จำได้แม่นขึ้น";
+    if (skill === "หาร") return "คำแนะนำ: การหารคือการคูณย้อนกลับ ลองนึกว่า 'เลขอะไรคูณกันแล้วได้เท่านี้' ดูสิ";
+    return "";
+  }
+
+  // Draw Feedback Text
+  let txtX = width * 0.54;
+  let txtY = height * 0.18; // Moved up to save space
+  let wrapWidth = width * 0.40;
+  textAlign(LEFT, TOP);
+  
+  textSize(32); fill(255, 215, 0); textStyle(BOLD);
+  text("ผลการประเมินทักษะ", txtX, txtY);
+  textStyle(NORMAL);
+  
+  textSize(24); fill(255);
+  text("⭐ คะแนนสูงสุดที่ทำได้ในแต่ละด่าน:", txtX, txtY + 40);
+  fill(200);
+  text("➕ การบวก: " + sP + " คะแนน", txtX + 20, txtY + 70);
+  text("➖ การลบ: " + sM + " คะแนน", txtX + 20, txtY + 95);
+  text("✖️ การคูณ: " + sX + " คะแนน", txtX + 20, txtY + 120);
+  text("➗ การหาร: " + sD + " คะแนน", txtX + 20, txtY + 145);
+  
+  fill(0, 255, 100);
+  text("🏆 จุดแข็ง: การ" + bestStr, txtX, txtY + 185);
+  fill(180, 255, 180); textSize(20);
+  text("💬 " + getBestTip(bestSingle), txtX + 20, txtY + 215, wrapWidth);
+
+  fill(255, 100, 100); textSize(24);
+  if (minS === maxS && maxS > 0) {
+    text("🎯 ทักษะทุกด้านสมดุลกันเป็นอย่างดี!", txtX, txtY + 275);
+  } else {
+    text("💡 ข้อควรพัฒนา: การ" + worstStr, txtX, txtY + 275);
+    fill(255, 180, 180); textSize(20);
+    text("💬 " + getWorstTip(worstSingle), txtX + 20, txtY + 305, wrapWidth);
+    
+    // Draw Example Box
+    let exY = txtY + 365;
+    fill(255, 255, 255, 240); noStroke(); rectMode(CORNER);
+    rect(txtX + 15, exY, wrapWidth - 10, 85, 10);
+    
+    fill(0); textSize(18); textStyle(BOLD); textAlign(LEFT, TOP);
+    text("✍️ ตัวอย่างการคิดลัด:", txtX + 30, exY + 10);
+    textStyle(NORMAL); textSize(18); fill(60);
+    
+    let tipLineY = exY + 35;
+    if (worstSingle === "บวก") {
+      text("8 + 5  ➔  แยก 5 เป็น 2+3\n➔  (8+2) + 3  ➔  10 + 3 = 13", txtX + 30, tipLineY);
+    } else if (worstSingle === "ลบ") {
+      text("13 - 8  ➔  นับ 8 ไป 10 (ได้ 2)\n➔  นับเพิ่มอีก 3  ➔  2+3 = 5", txtX + 30, tipLineY);
+    } else if (worstSingle === "คูณ") {
+      text("12 x 5  ➔  แยก 12 เป็น 10+2\n➔  (10x5) + (2x5)  ➔  60", txtX + 30, tipLineY);
+    } else if (worstSingle === "หาร") {
+      text("42 ÷ 6  ➔  นึกว่า 6 x ? = 42\n➔  6 x 7 = 42  ➔  คำตอบคือ 7", txtX + 30, tipLineY);
+    }
+  }
+  
+  // Navigation Button
+  let btnW = width * 0.25; if(btnW>350) btnW = 350;
+  let btnH = height * 0.08;
+  let btnX = width / 2 - btnW / 2; let btnY = height * 0.88; // Lowered button slightly
+
+  let isHover = (mouseX > btnX && mouseX < btnX + btnW && mouseY > btnY && mouseY < btnY + btnH);
+  let isClicked = false;
+  for (let h of activeHitboxes) {
+    if (h.x > btnX && h.x < btnX + btnW && h.y > btnY && h.y < btnY + btnH) { isHover = true; isClicked = true; break; }
+  }
+
+  rectMode(CORNER);
+  fill(isHover ? color(40,40,40,240) : color(0,0,0,220));
+  stroke(255, 215, 0); strokeWeight(4); 
+  rect(btnX, btnY, btnW, btnH, 25);
+  
+  fill(255, 215, 0); noStroke(); 
+  textSize(24); textStyle(BOLD);
+  textAlign(LEFT, CENTER);
+  let bTxt = "กลับสู่หน้าพิภพแผนที่";
+  let btw = textWidth(bTxt);
+  text(bTxt, btnX + btnW/2 - btw/2, btnY + btnH/2 - 4);
+  textStyle(NORMAL);
+
+  if (isClicked) {
+    playInstantSound(btnSoundClick);
+    currentStage = 4;
+    mapMode = 'main';
+  }
 }
