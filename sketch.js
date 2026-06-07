@@ -861,6 +861,15 @@ function draw() {
   if (currentStage >= 4 && currentStage !== 8) {
     drawLives();
   }
+  
+  let creditsBtn = document.getElementById('credits-btn');
+  if (creditsBtn) {
+    if (currentStage === 4 && mapMode === 'main' && !showRulesOverlay) {
+      creditsBtn.style.display = 'flex';
+    } else {
+      creditsBtn.style.display = 'none';
+    }
+  }
 }
 
 function drawMapSelection(activeHitboxes) {

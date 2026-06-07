@@ -180,9 +180,105 @@
       animation: moveStripes 1s linear infinite;
       transition: width 0.3s ease-out;
     }
+    }
     @keyframes moveStripes {
       0% { background-position: 0 0; }
       100% { background-position: 56px 0; }
+    }
+
+    /* Credits Popup */
+    #credits-overlay {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      z-index: 100000;
+      display: none; justify-content: center; align-items: center;
+      opacity: 0; transition: opacity 0.4s ease;
+    }
+    #credits-overlay.show {
+      display: flex; opacity: 1;
+    }
+    .credits-box {
+      background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(0, 40, 60, 0.9));
+      border: 2px solid #00E5FF;
+      box-shadow: 0 0 30px rgba(0, 229, 255, 0.4), inset 0 0 20px rgba(0, 229, 255, 0.1);
+      border-radius: 20px;
+      padding: 40px;
+      width: 80%; max-width: 900px;
+      display: flex; gap: 40px;
+      position: relative;
+      transform: translateY(50px) scale(0.95);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    #credits-overlay.show .credits-box {
+      transform: translateY(0) scale(1);
+    }
+    .credits-close {
+      position: absolute; top: 15px; right: 20px;
+      background: none; border: none; color: #aaa; font-size: 30px; cursor: pointer; transition: 0.3s;
+    }
+    .credits-close:hover { color: #FF3366; text-shadow: 0 0 10px #FF3366; transform: scale(1.2); }
+    
+    .credits-left {
+      flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center;
+      border-right: 1px dashed rgba(0, 229, 255, 0.3); padding-right: 30px;
+    }
+    .credits-profile-img {
+      width: 150px; height: 150px; border-radius: 50%; object-fit: cover;
+      border: 4px solid #FFD700; box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+      margin-bottom: 20px; animation: profileFloat 4s ease-in-out infinite;
+    }
+    @keyframes profileFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .credits-name { font-size: 28px; color: #FFD700; margin: 0; font-weight: bold; text-shadow: 0 0 10px rgba(255,215,0,0.5); }
+    .credits-nickname { font-size: 20px; color: #00E5FF; margin: 5px 0 15px 0; }
+    .credits-role { font-size: 16px; color: #ddd; margin: 2px 0; }
+    .credits-school { font-size: 16px; color: #aaa; margin: 2px 0; }
+    
+    .credits-social {
+      display: flex; gap: 15px; margin-top: 25px;
+    }
+    .credits-social a {
+      display: flex; justify-content: center; align-items: center;
+      width: 45px; height: 45px; border-radius: 50%;
+      text-decoration: none; font-size: 24px; transition: 0.3s;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    }
+    .credits-social a.fb { color: #1877F2; }
+    .credits-social a.tt { color: #FFF; }
+    .credits-social a.yt { color: #FF0000; }
+    .credits-social a:hover { transform: translateY(-5px) scale(1.1); box-shadow: 0 10px 15px rgba(0,0,0,0.5); background: rgba(255,255,255,0.2); }
+    .credits-social a.fb:hover { border-color: #1877F2; box-shadow: 0 0 15px #1877F2; }
+    .credits-social a.tt:hover { border-color: #00E5FF; box-shadow: 0 0 15px #00E5FF; }
+    .credits-social a.yt:hover { border-color: #FF0000; box-shadow: 0 0 15px #FF0000; }
+
+    .credits-right {
+      flex: 2; display: flex; flex-direction: column; justify-content: center; gap: 20px;
+    }
+    .credits-card {
+      background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(0, 229, 255, 0.2);
+      border-radius: 12px; padding: 20px;
+    }
+    .credits-card h3 {
+      margin: 0 0 10px 0; color: #00E5FF; font-size: 20px; display: flex; align-items: center; gap: 10px;
+    }
+    .credits-card p {
+      margin: 5px 0; color: #ddd; font-size: 15px; line-height: 1.6;
+    }
+    .tech-tags {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;
+    }
+    .tech-tag {
+      background: rgba(255, 215, 0, 0.15); color: #FFD700; border: 1px solid rgba(255, 215, 0, 0.3);
+      padding: 3px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      .credits-box { flex-direction: column; padding: 25px; gap: 20px; }
+      .credits-left { border-right: none; border-bottom: 1px dashed rgba(0, 229, 255, 0.3); padding-right: 0; padding-bottom: 20px; }
+      .credits-profile-img { width: 100px; height: 100px; }
     }
   </style>
 </head>
@@ -199,6 +295,7 @@
   <div id="global-tools">
     <button class="tool-btn" onclick="toggleFullscreen()" title="เต็มจอ">🖥️</button>
     <button id="sound-btn" class="tool-btn" onclick="toggleSound()" title="เปิด/ปิดเสียงดนตรี">🔊</button>
+    <button id="credits-btn" class="tool-btn" onclick="showCreditsPopup()" title="ข้อมูลผู้พัฒนา" style="display: none;">👨🏻‍🏫</button>
   </div>
 
   <div id="screen-1" class="screen active">
@@ -226,6 +323,74 @@
   <div id="screen-3" class="screen">
     <video id="vid3" class="bg-video" src="intro3.mp4" muted playsinline></video>
   </div>
+
+  <!-- Developer Credits Popup Overlay -->
+  <div id="credits-overlay">
+    <div class="credits-box">
+      <button class="credits-close" onclick="hideCreditsPopup()">×</button>
+      
+      <div class="credits-left">
+        <img src="profile.jpg" alt="Profile" class="credits-profile-img">
+        <h2 class="credits-name">นายกฤษณะ ทุ่งจันทร์</h2>
+        <h3 class="credits-nickname">[ ครูไท้ย์ สะกิดต่อมMATH ]</h3>
+        <p class="credits-role">ครูคณิตศาสตร์</p>
+        <p class="credits-school">โรงเรียนวัดบ้านบึงนาราง "แก้ววิทยาคาร"</p>
+        <p class="credits-school">สพป.พิจิตร เขต 2</p>
+        
+        <div class="credits-social">
+          <a href="https://www.facebook.com/profile.php?id=61559619610320" target="_blank" class="fb" title="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@sakridtommath?_r=1&_t=ZS-970vyXwkt6o" target="_blank" class="tt" title="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v7.2c0 1.68-.39 3.41-1.39 4.8-1.25 1.75-3.3 2.91-5.46 3.14-2.43.27-5.06-.23-6.94-1.92-1.74-1.56-2.58-4-2.18-6.31.32-1.85 1.4-3.5 2.91-4.48 1.79-1.17 4.09-1.4 6.06-.79v4.11c-.56-.12-1.14-.15-1.71-.1-.7.06-1.41.34-1.91.87-.56.6-.74 1.51-.55 2.29.17.68.64 1.25 1.25 1.55.93.45 2.11.37 2.92-.2.62-.43 1.02-1.15 1.11-1.91.07-.63.01-12.86.01-16.72z"/></svg>
+          </a>
+          <a href="https://youtube.com/@sakridtommath?si=JKly_QCLwEFt2Ur7" target="_blank" class="yt" title="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M21.582 6.186a2.67 2.67 0 0 0-1.876-1.888C17.962 3.8 12 3.8 12 3.8s-5.962 0-7.706.498A2.67 2.67 0 0 0 2.418 6.186C1.92 7.93 1.92 12 1.92 12s0 4.07.498 5.814a2.67 2.67 0 0 0 1.876 1.888C6.038 20.2 12 20.2 12 20.2s5.962 0 7.706-.498a2.67 2.67 0 0 0 1.876-1.888C22.08 16.07 22.08 12 22.08 12s0-4.07-.498-5.814zM9.814 15.352V8.648L15.603 12l-5.789 3.352z"/></svg>
+          </a>
+        </div>
+      </div>
+      
+      <div class="credits-right">
+        <div class="credits-card">
+          <h3>📺 ข้อมูลมัลติมีเดีย</h3>
+          <p><strong>ชื่อ:</strong> สุดสาคร ตอน ทะลุมิติพิภพคณิตศาสตร์ (MathVenture) - เกมคณิตศาสตร์แบบโต้ตอบด้วย AI</p>
+          <p><strong>การพัฒนา:</strong> ประยุกต์ใช้เทคโนโลยี Web-based AR และ Generative Tools</p>
+          <div class="tech-tags">
+            <span class="tech-tag">HTML5 Canvas</span>
+            <span class="tech-tag">p5.js</span>
+            <span class="tech-tag">ml5.js (MoveNet)</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">CSS3 Glassmorphism</span>
+          </div>
+        </div>
+        
+        <div class="credits-card">
+          <h3>⭐ วัตถุประสงค์</h3>
+          <p>เพื่อพัฒนาทักษะการคิดคำนวณพื้นฐาน (บวก ลบ คูณ หาร) ผ่านสื่อรูปแบบเกมมิฟิเคชัน (Gamification) ที่ประยุกต์ใช้เทคโนโลยี AI ตรวจจับการเคลื่อนไหว มุ่งเน้นกระตุ้นให้ผู้เรียนเกิดความสนุกและมีส่วนร่วมแบบ Active Learning</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showCreditsPopup() {
+      let overlay = document.getElementById('credits-overlay');
+      overlay.style.display = 'flex';
+      setTimeout(() => { overlay.classList.add('show'); }, 10);
+      if (typeof playInstantSound === 'function' && typeof btnSoundClick !== 'undefined') {
+        playInstantSound(btnSoundClick);
+      }
+    }
+    
+    function hideCreditsPopup() {
+      let overlay = document.getElementById('credits-overlay');
+      overlay.classList.remove('show');
+      setTimeout(() => { overlay.style.display = 'none'; }, 400);
+      if (typeof playInstantSound === 'function' && typeof btnSoundClick !== 'undefined') {
+        playInstantSound(btnSoundClick);
+      }
+    }
+  </script>
 
   <script src="sketch.js"></script>
 </body>
