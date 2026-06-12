@@ -286,13 +286,14 @@
 
   <!-- หน้าจอโหลดทรัพยากร -->
   <div id="p5_loading">
-    <div class="loading-text">กำลังดาวน์โหลดทรัพยากร... <span id="loading-percent">0%</span></div>
+    <div class="loading-text" id="loading-text">กำลังดาวน์โหลดทรัพยากร... <span id="loading-percent">0%</span></div>
     <div class="progress-container">
       <div class="progress-bar"></div>
     </div>
   </div>
 
   <div id="global-tools">
+    <button id="lang-btn" class="tool-btn" onclick="toggleLanguage(event)" title="เปลี่ยนภาษา / Language">🇹🇭</button>
     <button class="tool-btn" onclick="toggleFullscreen()" title="เต็มจอ">🖥️</button>
     <button id="sound-btn" class="tool-btn" onclick="toggleSound()" title="เปิด/ปิดเสียงดนตรี">🔊</button>
     <button id="credits-btn" class="tool-btn" onclick="showCreditsPopup()" title="ข้อมูลผู้พัฒนา" style="display: none;">👨🏻‍🏫</button>
@@ -307,7 +308,7 @@
   <div id="screen-2" class="screen">
     <video id="vid2" class="bg-video" src="intro2.mp4" loop muted playsinline></video>
     <div id="login-box" class="login-box">
-      <h1>สุดสาคร ตอน ทะลุมิติพิภพคณิตศาสตร์</h1>
+      <h1 id="game-title">สุดสาคร ตอน ทะลุมิติพิภพคณิตศาสตร์</h1>
       
       <!-- 🌟 แบ่งเป็น 2 ช่องเรียงคู่กัน -->
       <div class="input-group">
@@ -316,7 +317,7 @@
       </div>
 
       <br>
-      <button type="button" onclick="submitLogin()">เข้าสู่พิภพคณิตศาสตร์</button>
+      <button type="button" id="login-btn" onclick="submitLogin()">เข้าสู่พิภพคณิตศาสตร์</button>
     </div>
   </div>
 
@@ -331,11 +332,11 @@
       
       <div class="credits-left">
         <img src="profile.jpg" alt="Profile" class="credits-profile-img">
-        <h2 class="credits-name">นายกฤษณะ ทุ่งจันทร์</h2>
-        <h3 class="credits-nickname">[ ครูไท้ย์ สะกิดต่อมMATH ]</h3>
-        <p class="credits-role">ครูคณิตศาสตร์</p>
-        <p class="credits-school">โรงเรียนวัดบ้านบึงนาราง "แก้ววิทยาคาร"</p>
-        <p class="credits-school">สพป.พิจิตร เขต 2</p>
+        <h2 class="credits-name" id="credits-title">นายกฤษณะ ทุ่งจันทร์</h2>
+        <h3 class="credits-nickname" id="credits-nickname">[ ครูไท้ย์ สะกิดต่อมMATH ]</h3>
+        <p class="credits-role" id="credits-role">ครูคณิตศาสตร์</p>
+        <p class="credits-school" id="credits-school1">โรงเรียนวัดบ้านบึงนาราง "แก้ววิทยาคาร"</p>
+        <p class="credits-school" id="credits-school2">สพป.พิจิตร เขต 2</p>
         
         <div class="credits-social">
           <a href="https://www.facebook.com/profile.php?id=61559619610320" target="_blank" class="fb" title="Facebook">
@@ -352,9 +353,9 @@
       
       <div class="credits-right">
         <div class="credits-card">
-          <h3>📺 ข้อมูลมัลติมีเดีย</h3>
-          <p><strong>ชื่อ:</strong> สุดสาคร ตอน ทะลุมิติพิภพคณิตศาสตร์ (MathVenture) - เกมคณิตศาสตร์แบบโต้ตอบด้วย AI</p>
-          <p><strong>การพัฒนา:</strong> ประยุกต์ใช้เทคโนโลยี Web-based AR และ Generative Tools</p>
+          <h3 id="credits-media-title">📺 ข้อมูลมัลติมีเดีย</h3>
+          <p id="credits-media-desc1"><strong>ชื่อ:</strong> สุดสาคร ตอน ทะลุมิติพิภพคณิตศาสตร์ (MathVenture) - เกมคณิตศาสตร์แบบโต้ตอบด้วย AI</p>
+          <p id="credits-media-desc2"><strong>การพัฒนา:</strong> ประยุกต์ใช้เทคโนโลยี Web-based AR และ Generative Tools</p>
           <div class="tech-tags">
             <span class="tech-tag">HTML5 Canvas</span>
             <span class="tech-tag">p5.js</span>
@@ -365,8 +366,8 @@
         </div>
         
         <div class="credits-card">
-          <h3>⭐ วัตถุประสงค์</h3>
-          <p>เพื่อพัฒนาทักษะการคิดคำนวณพื้นฐาน (บวก ลบ คูณ หาร) ผ่านสื่อรูปแบบเกมมิฟิเคชัน (Gamification) ที่ประยุกต์ใช้เทคโนโลยี AI ตรวจจับการเคลื่อนไหว มุ่งเน้นกระตุ้นให้ผู้เรียนเกิดความสนุกและมีส่วนร่วมแบบ Active Learning</p>
+          <h3 id="credits-obj-title">⭐ วัตถุประสงค์</h3>
+          <p id="credits-obj-desc">เพื่อพัฒนาทักษะการคิดคำนวณพื้นฐาน (บวก ลบ คูณ หาร) ผ่านสื่อรูปแบบเกมมิฟิเคชัน (Gamification) ที่ประยุกต์ใช้เทคโนโลยี AI ตรวจจับการเคลื่อนไหว มุ่งเน้นกระตุ้นให้ผู้เรียนเกิดความสนุกและมีส่วนร่วมแบบ Active Learning</p>
         </div>
       </div>
     </div>
@@ -388,6 +389,77 @@
       setTimeout(() => { overlay.style.display = 'none'; }, 400);
       if (typeof playInstantSound === 'function' && typeof btnSoundClick !== 'undefined') {
         playInstantSound(btnSoundClick);
+      }
+    }
+    
+        function toggleLanguage(event) {
+      if (event) event.stopPropagation();
+      window.gameLang = window.gameLang === 'TH' ? 'EN' : 'TH';
+      document.getElementById('lang-btn').innerHTML = window.gameLang === 'TH' ? '🇹🇭' : '🇬🇧';
+      updateHtmlLanguage();
+      if (typeof createMenuButtons === 'function') {
+        createMenuButtons();
+      }
+    }
+
+    function safeUpdate(id, prop, value) {
+      let el = document.getElementById(id);
+      if (el) el[prop] = value;
+    }
+
+    function safeUpdateHTML(id, value) {
+      let el = document.getElementById(id);
+      if (el) el.innerHTML = value;
+    }
+
+    function updateHtmlLanguage() {
+      let lang = window.gameLang;
+      if (lang === 'TH') {
+        let loadingEl = document.getElementById('loading-text');
+        if (loadingEl && loadingEl.childNodes.length > 0) loadingEl.childNodes[0].nodeValue = "กำลังดาวน์โหลดทรัพยากร... ";
+        
+        safeUpdate('start-text', 'innerText', "เริ่มเกม");
+        safeUpdate('game-title', 'innerText', "สุดสาคร ตอน ทะลุมิติพิภพคณิตศาสตร์");
+        safeUpdate('playerName', 'placeholder', "พิมพ์ชื่อผู้กล้า...");
+        safeUpdate('schoolName', 'placeholder', "พิมพ์ชื่อโรงเรียน...");
+        safeUpdate('login-btn', 'innerText', "เข้าสู่พิภพคณิตศาสตร์");
+        
+        safeUpdate('credits-title', 'innerText', "นายกฤษณะ ทุ่งจันทร์");
+        safeUpdate('credits-nickname', 'innerText', "[ ครูไท้ย์ สะกิดต่อมMATH ]");
+        safeUpdate('credits-role', 'innerText', "ครูคณิตศาสตร์");
+        safeUpdate('credits-school1', 'innerText', 'โรงเรียนวัดบ้านบึงนาราง "แก้ววิทยาคาร"');
+        safeUpdate('credits-school2', 'innerText', "สพป.พิจิตร เขต 2");
+        
+        safeUpdateHTML('credits-media-title', "📺 ข้อมูลมัลติมีเดีย");
+        safeUpdateHTML('credits-media-desc1', "<strong>ชื่อ:</strong> สุดสาคร ตอน ทะลุมิติพิภพคณิตศาสตร์ (MathVenture) - เกมคณิตศาสตร์แบบโต้ตอบด้วย AI");
+        safeUpdateHTML('credits-media-desc2', "<strong>การพัฒนา:</strong> ประยุกต์ใช้เทคโนโลยี Web-based AR และ Generative Tools");
+        
+        safeUpdateHTML('credits-obj-title', "⭐ วัตถุประสงค์");
+        safeUpdateHTML('yt-close-btn', window.gameTexts['TH'].closeVideo);
+        safeUpdate('credits-obj-desc', 'innerText', "เพื่อพัฒนาทักษะการคิดคำนวณพื้นฐาน (บวก ลบ คูณ หาร) ผ่านสื่อรูปแบบเกมมิฟิเคชัน (Gamification) ที่ประยุกต์ใช้เทคโนโลยี AI ตรวจจับการเคลื่อนไหว มุ่งเน้นกระตุ้นให้ผู้เรียนเกิดความสนุกและมีส่วนร่วมแบบ Active Learning");
+      } else {
+        let loadingEl = document.getElementById('loading-text');
+        if (loadingEl && loadingEl.childNodes.length > 0) loadingEl.childNodes[0].nodeValue = "Downloading resources... ";
+        
+        safeUpdate('start-text', 'innerText', "Start Game");
+        safeUpdate('game-title', 'innerText', "MathVenture: Sudsakorn's Journey");
+        safeUpdate('playerName', 'placeholder', "Enter Hero Name...");
+        safeUpdate('schoolName', 'placeholder', "Enter School Name...");
+        safeUpdate('login-btn', 'innerText', "Enter Math World");
+        
+        safeUpdate('credits-title', 'innerText', "Kritsana Tungchan");
+        safeUpdate('credits-nickname', 'innerText', "[ Kru Type Sakridtommath ]");
+        safeUpdate('credits-role', 'innerText', "Mathematics Teacher");
+        safeUpdate('credits-school1', 'innerText', "Wat Ban Bueng Narang 'Kaewwitthayakan' School");
+        safeUpdate('credits-school2', 'innerText', "Phichit Primary Educational Service Area Office 2");
+        
+        safeUpdateHTML('credits-media-title', "📺 Multimedia Info");
+        safeUpdateHTML('credits-media-desc1', "<strong>Name:</strong> MathVenture - Interactive AI Math Game");
+        safeUpdateHTML('credits-media-desc2', "<strong>Development:</strong> Utilizing Web-based AR and Generative Tools");
+        
+        safeUpdateHTML('credits-obj-title', "⭐ Objectives");
+        safeUpdateHTML('yt-close-btn', window.gameTexts['EN'].closeVideo);
+        safeUpdate('credits-obj-desc', 'innerText', "To develop basic arithmetic skills (+, -, x, ÷) through Gamification, utilizing AI motion tracking to encourage active and fun learning.");
       }
     }
   </script>

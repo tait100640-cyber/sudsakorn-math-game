@@ -1,12 +1,234 @@
 // ==========================================
 // ส่วนจัดการระบบ State, วิดีโอ และเสียง
 // ==========================================
+window.gameLang = 'TH';
+window.gameTexts = {
+  TH: {
+    welcome: "✨ ยินดีต้อนรับ ผู้กล้า: {name} แห่ง {school} ✨",
+    story: "เนื้อเรื่อง",
+    play: "เล่นเกม",
+    conclusion: "บทสรุป",
+    rules: "กติกา",
+    leaderboard: "กระดานผู้นำ",
+    townPlus: "เมืองบวก",
+    townMinus: "ลบบุรี",
+    townMultiply: "นคราคูณ",
+    townDivide: "นครหาร",
+    back: "ย้อนกลับ",
+    lockedConclusion: "🔒 ",
+    unlockedConclusion: "🥇 ",
+    cleared: "✨ พิชิตแล้ว ✨",
+    alertConclusionLocked: "ปุ่มบทสรุปล็อกอยู่! ท่านต้องเอาชนะทั้ง 4 เมืองก่อนจึงจะสามารถเปิดได้",
+    alertNoName: "กรุณากรอกชื่อผู้กล้าก่อนนะครับ!",
+    alertNoSchool: "กรุณากรอกชื่อโรงเรียนด้วยนะครับ!",
+    target: "เป้าหมาย: ",
+    scoreText: "คะแนน: ",
+    timeLeft: "เวลาเหลือ: ",
+    min: " นาที ",
+    sec: " วินาที",
+    timeout: "หมดเวลา!",
+    gameOverDesc: "ท่านทำคะแนนในโหมด {op} ได้ {score} คะแนน",
+    playAgain: "กดเพื่อเล่นอีกครั้ง",
+    leaderboardTitle: "🏆 กระดานผู้นำ (Top 10) 🏆",
+    rank: "อันดับ",
+    name: "ชื่อ",
+    school: "โรงเรียน",
+    pts: "คะแนน",
+    loading: "กำลังดาวน์โหลดข้อมูล...",
+    noData: "ยังไม่มีข้อมูล",
+    summaryTitle: "📊 สรุปผลการทดสอบทักษะ 📊",
+    hero: "ผู้กล้า: ",
+    plus: "การบวก",
+    minus: "การลบ",
+    multiply: "การคูณ",
+    divide: "การหาร",
+    total: "รวมทั้งหมด",
+    levelExcellent: "(เก่งมาก!)",
+    levelGood: "(ปานกลาง)",
+    levelTry: "(ต้องพยายามอีกนิด)",
+        backToMap: "กดกลับสู่แผนที่หลัก",
+    gameOverTitle: "ภารกิจสิ้นสุด!",
+    statusPass: "ภารกิจสำเร็จ!",
+    statusFail: "ภารกิจล้มเหลว!",
+    learnSource: "แหล่งเรียนรู้",
+    // New items added:
+    evalTitle: "ผลการประเมินทักษะ",
+    msgReady: "เตรียมตะลุยด่าน!",
+    msgStart: "เริ่มต้นตะลุยด่าน!",
+    msgCorrect: "ถูกต้อง! +2",
+    msgWrong: "ผิด! เวลาลด -3 วินาที",
+    msgTrap: "โดนกับดัก! เวลาลด -3 วินาที",
+    evalMax: "⭐ คะแนนสูงสุดที่ทำได้ในแต่ละด่าน:",
+    evalPlus: "➕ การบวก: ",
+    evalMinus: "➖ การลบ: ",
+    evalMul: "✖️ การคูณ: ",
+    evalDiv: "➗ การหาร: ",
+    evalPts: " คะแนน",
+    evalStrong: "🏆 จุดแข็ง: ",
+    evalAllGood: "🎯 ทักษะทุกด้านสมดุลกันเป็นอย่างดี!",
+    evalWeak: "💡 ข้อควรพัฒนา: ",
+    evalShortcut: "✍️ ตัวอย่างการคิดลัด:",
+        btnBackMap: "กลับสู่หน้าพิภพแผนที่",
+    // Part 2
+    calibHeadReady: "✔ ศรีษะ: พร้อม",
+    calibHeadNot: "❌ มองไม่เห็นศรีษะ",
+    calibHandsReady: "✔ มือทั้งสองข้าง: พร้อม",
+    calibHandsNot: "❌ มองไม่เห็นมือ",
+    calibFeetReady: "✔ เท้าและช่วงล่าง: พร้อม",
+    calibFeetNot: "❌ มองไม่เห็นเท้า",
+    stepBack: "กรุณาถอยหลังให้กล้องเห็นทั้งตัว",
+    stepBack2: "(ยืนให้พอดีกับกรอบสีเขียว)",
+    timeLeftFormat: "เวลาเหลือ: {min} นาที {sec} วินาที",
+    pauseTitle: "|| หยุดชั่วคราว",
+    resumeBtn: "เล่นต่อ",
+    pauseBtn: "พักเกม",
+    exitBtn: "ออก",
+    bonusTime: "เวลาโบนัส: ",
+    playerPrefix: "ผู้เล่น: ",
+    stagePrefix: "\nด่าน: ",
+    roundScore: "คะแนนในรอบนี้: {score} คะแนน \nคะแนนสูงสุดที่ทำได้ในด่านนี้: {highScore} คะแนน",
+    newRecord: "🎉 ยินดีด้วย! คุณทำลายสถิติใหม่! 🎉",
+    tryAgain: "พยายามอีกนิดนะ!",
+    finalBtn: "กดเพื่อเล่นอีกครั้ง",
+    summaryMainTitle: "✨ สรุปทักษะคณิตศาสตร์ ✨",
+    bodyAnalysis: "วิเคราะห์ร่างกาย",
+    closeVideo: "ปิดเนื้อเรื่อง (ข้าม)",
+    learnSource: "แหล่งเรียนรู้",
+    add: "การบวก",
+    sub: "การลบ",
+    mul: "การคูณ",
+    div: "การหาร",
+    t_add_best: "เทคนิค: คุณบวกเลขได้ไวมาก! ลองฝึกจับคู่ให้ครบ 10 ในใจเสมอจะยิ่งเร็วขึ้น",
+    t_sub_best: "เทคนิค: การหักล้างของคุณแม่นยำมาก ลองใช้วิธี 'นับต่อ' ในเลขหลักร้อยดูสิ",
+    t_mul_best: "เทคนิค: คุณมีพรสวรรค์การคูณ! ลองแยกตัวประกอบเวลาคูณเลขเยอะๆ ดูนะ",
+    t_div_best: "เทคนิค: คุณแบ่งตัวเลขได้เฉียบขาดมาก เป็นทักษะขั้นสูงเลยทีเดียว!",
+    t_add_worst: "คำแนะนำ: ลองจับคู่ตัวเลขให้ครบ 10 ก่อน แล้วค่อยบวกส่วนที่เหลือดูนะ",
+    t_sub_worst: "คำแนะนำ: ลองใช้วิธี 'นับจากตัวลบไปหาตัวตั้ง' จะช่วยให้คิดง่ายกว่าหักออก",
+    t_mul_worst: "คำแนะนำ: ท่องสูตรคูณแม่ 2-9 ให้คล่องเป็นจังหวะ จะช่วยให้จำได้แม่นขึ้น",
+    t_div_worst: "คำแนะนำ: การหารคือการคูณย้อนกลับ ลองนึกว่า 'เลขอะไรคูณกันแล้วได้เท่านี้' ดูสิ",
+    s_add: "8 + 5  ➔  แยก 5 เป็น 2+3\n➔  (8+2) + 3  ➔  10 + 3 = 13",
+    s_sub: "13 - 8  ➔  นับ 8 ไป 10 (ได้ 2)\n➔  นับเพิ่มอีก 3  ➔  2+3 = 5",
+    s_mul: "12 x 5  ➔  แยก 12 เป็น 10+2\n➔  (10x5) + (2x5)  ➔  60",
+    s_div: "42 ÷ 6  ➔  นึกว่า 6 x ? = 42\n➔  6 x 7 = 42  ➔  คำตอบคือ 7"
+  },
+  EN: {
+    welcome: "✨ Welcome Hero: {name} of {school} ✨",
+    story: "Story",
+    play: "Play",
+    conclusion: "Conclusion",
+    rules: "Rules",
+    leaderboard: "Leaderboard",
+    townPlus: "Town of Addition",
+    townMinus: "City of Subtraction",
+    townMultiply: "Realm of Multiplication",
+    townDivide: "Kingdom of Division",
+    back: "Back",
+    lockedConclusion: "🔒 ",
+    unlockedConclusion: "🥇 ",
+    cleared: "✨ Cleared ✨",
+    alertConclusionLocked: "Conclusion is locked! You must conquer all 4 towns first.",
+    alertNoName: "Please enter your hero name!",
+    alertNoSchool: "Please enter your school name!",
+    gameOverTitle: "Mission Complete!",
+    statusPass: "✨ Stage Cleared ✨",
+    statusFail: "❌ Stage Not Cleared (Need 30+ pts)",
+    btnBackMap: "Return to Map",
+
+    target: "Target: ",
+    scoreText: "Score: ",
+    timeLeft: "Time Left: ",
+    min: " m ",
+    sec: " s",
+    timeout: "Time's Up!",
+    gameOverDesc: "You scored {score} points in {op} mode",
+    playAgain: "Click to Play Again",
+    leaderboardTitle: "🏆 Leaderboard (Top 10) 🏆",
+    rank: "Rank",
+    name: "Name",
+    school: "School",
+    pts: "Pts",
+    loading: "Loading data...",
+    noData: "No data available",
+    summaryTitle: "📊 Skill Summary 📊",
+    hero: "Hero: ",
+    plus: "Addition",
+    minus: "Subtraction",
+    multiply: "Multiplication",
+    divide: "Division",
+    total: "Total",
+    levelExcellent: "(Excellent!)",
+    levelGood: "(Good)",
+    levelTry: "(Try Harder)",
+        backToMap: "Back to Map",
+    statusPass: "Mission Cleared!",
+    statusFail: "Mission Failed!",
+    learnSource: "Learn More",
+    evalTitle: "Skill Evaluation Results",
+    msgReady: "Get Ready!",
+    msgStart: "Game Start!",
+    msgCorrect: "Correct! +2",
+    msgWrong: "Wrong! Time -3s",
+    msgTrap: "Trap hit! Time -3s",
+    evalMax: "⭐ Highest Score per Stage:",
+    evalPlus: "➕ Addition: ",
+    evalMinus: "➖ Subtraction: ",
+    evalMul: "✖️ Multiplication: ",
+    evalDiv: "➗ Division: ",
+    evalPts: " points",
+    evalStrong: "🏆 Strength: ",
+    evalAllGood: "🎯 Well-balanced skills in all areas!",
+    evalWeak: "💡 Needs Improvement: ",
+    evalShortcut: "✍️ Shortcut Example:",
+        btnBackMap: "Return to Map",
+    calibHeadReady: "✔ Head: Ready",
+    calibHeadNot: "❌ Head Not Found",
+    calibHandsReady: "✔ Hands: Ready",
+    calibHandsNot: "❌ Hands Not Found",
+    calibFeetReady: "✔ Feet: Ready",
+    calibFeetNot: "❌ Feet Not Found",
+    stepBack: "Please step back so the camera sees your full body",
+    stepBack2: "(Fit inside the green frame)",
+    timeLeftFormat: "Time Left: {min} m {sec} s",
+    pauseTitle: "|| Paused",
+    resumeBtn: "Resume",
+    pauseBtn: "Pause",
+    exitBtn: "Exit",
+    bonusTime: "Bonus Time: ",
+    playerPrefix: "Player: ",
+    stagePrefix: "\nStage: ",
+    roundScore: "Round Score: {score} pts \nHigh Score: {highScore} pts",
+    newRecord: "🎉 Congrats! New Record! 🎉",
+    tryAgain: "Keep trying!",
+    finalBtn: "Click to Play Again",
+    summaryMainTitle: "✨ Math Skill Summary ✨",
+    bodyAnalysis: "Body Analysis",
+    closeVideo: "Close Story (Skip)",
+    learnSource: "Learning Source",
+    add: "Addition",
+    sub: "Subtraction",
+    mul: "Multiplication",
+    div: "Division",
+    t_add_best: "Tip: You add numbers very fast! Try making pairs of 10 in your mind to be even faster.",
+    t_sub_best: "Tip: Your subtraction is very precise. Try 'counting on' for hundreds.",
+    t_mul_best: "Tip: You have a gift for multiplication! Try factoring when multiplying large numbers.",
+    t_div_best: "Tip: You divide numbers very sharply. That's a high-level skill!",
+    t_add_worst: "Advice: Try making pairs of 10 first, then add the rest.",
+    t_sub_worst: "Advice: Try 'counting on' from the subtrahend to the minuend. It's easier.",
+    t_mul_worst: "Advice: Practice reciting the 2-9 times tables rhythmically.",
+    t_div_worst: "Advice: Division is reverse multiplication. Think 'what times this equals that'.",
+    s_add: "8 + 5  ➔  Split 5 into 2+3\n➔  (8+2) + 3  ➔  10 + 3 = 13",
+    s_sub: "13 - 8  ➔  Count 8 to 10 (gets 2)\n➔  Add 3 more  ➔  2+3 = 5",
+    s_mul: "12 x 5  ➔  Split 12 into 10+2\n➔  (10x5) + (2x5)  ➔  60",
+    s_div: "42 ÷ 6  ➔  Think 6 x ? = 42\n➔  6 x 7 = 42  ➔  Answer is 7"
+  }
+};
+
 let currentStage = 1; 
 window.isSoundMuted = false; 
 window.isCameraOn = false; 
 let bgm, gameBgm, bonusBgm, btnSoundStart, btnSoundLogin, btnSoundClick;
 let soundCorrect, soundWrong, soundWhistle; 
-let mapImg, logoImg, rulesImg;
+let mapImg, logoImg, rulesImg, rulesImgEN;
 let bgPlus, bgMinus, bgMultiply, bgDivide; 
 
 let completedTowns = { plus: false, minus: false, multiply: false, divide: false };
@@ -60,7 +282,8 @@ function openYouTubePopup(videoId, callback) {
     });
     
     let closeBtn = document.createElement('button');
-    closeBtn.innerHTML = 'ปิดวิดีโอ (ข้าม)';
+    closeBtn.id = 'yt-close-btn';
+    closeBtn.innerHTML = window.gameTexts[window.gameLang].closeVideo;
     Object.assign(closeBtn.style, {
       marginTop: '20px', padding: '10px 40px', fontSize: '20px', fontFamily: "'Kanit', sans-serif",
       background: '#FFD700', border: 'none', borderRadius: '25px', cursor: 'pointer', fontWeight: 'bold'
@@ -134,9 +357,10 @@ function closeYouTubePopup() {
 // ==========================================
 
 // ระบบกระดานผู้นำ
-const LEADERBOARD_API_URL = "https://script.google.com/macros/s/AKfycbztIZLt5QJ1sqRO32BXUFx2a95HJS-ojrwECASuzZ3QVr0CAHE1jVUaDwUb8TIsrfhR/exec";
+const LEADERBOARD_API_URL = "https://script.google.com/macros/s/AKfycbxgGHxLOoznLqmqb3fSexDp8IekgRuGeO7A4l9WJo9mzdpwFwBKApHBARHNR1kgw4p1/exec";
 let leaderboardData = [];
 let isFetchingLeaderboard = false;
+let lastUIClickTime = 0;
 let scoreSaved = false; 
 
 function playInstantSound(snd) {
@@ -216,6 +440,17 @@ function keyPressed() {
   if (keyCode === 32 && currentStage === 1) { 
     goToLogin();
   }
+  
+  if (key === 'G' || key === 'g') {
+    if (currentStage >= 4) {
+      if (!selectedCity || !selectedCity.id) {
+        selectedCity = { id: 'plus', name: 'Town of Addition' };
+      }
+      score = 8;
+      currentStage = 8;
+      if (bgm && bgm.isPlaying()) bgm.pause();
+    }
+  }
 }
 
 function restartMapMusic() {
@@ -260,8 +495,8 @@ window.submitLogin = function() {
   let name = document.getElementById('playerName').value;
   let school = document.getElementById('schoolName').value; 
   
-  if(!name) { alert("กรุณากรอกชื่อผู้กล้าก่อนนะครับ!"); return; }
-  if(!school) { alert("กรุณากรอกชื่อโรงเรียนด้วยนะครับ!"); return; }
+  if(!name) { var t = window.gameTexts[window.gameLang]; alert(t.alertNoName); return; }
+  if(!school) { var t = window.gameTexts[window.gameLang]; alert(t.alertNoSchool); return; }
   
   currentPlayerName = name;
   currentSchoolName = school; 
@@ -407,6 +642,7 @@ function preload() {
   mapImg = loadImage('map.jpeg', updateProgress);
   logoImg = loadImage('logo.png', updateProgress);
   rulesImg = loadImage('rules.png', updateProgress);
+  rulesImgEN = loadImage('rules2.png', updateProgress);
   
   bgPlus = loadImage('1.jpeg', updateProgress);
   bgMinus = loadImage('2.jpeg', updateProgress);
@@ -441,29 +677,31 @@ function initCamera() {
 }
 
 function createMenuButtons() {
-  let btnW = width * 0.32; 
-  if (btnW > 400) btnW = 400; 
+  let btnW = width * 0.40; 
+  if (btnW > 500) btnW = 500; 
   let btnH = height * 0.07; 
   let startX = width / 2 - btnW / 2; 
   let mainStartY = height * 0.50; 
   let gapY = height * 0.09; 
+  
+  var t = window.gameTexts[window.gameLang];
 
   mainButtons = [
-    { id: "story", name: "เนื้อเรื่อง", x: startX, y: mainStartY, w: btnW, h: btnH },
-    { id: "play", name: "เล่นเกม", x: startX, y: mainStartY + gapY*1, w: btnW, h: btnH },
-    { id: "conclusion", name: "บทสรุป", x: startX, y: mainStartY + gapY*2, w: btnW, h: btnH },
-    { id: "rules", name: "กติกา", x: startX, y: mainStartY + gapY*3, w: btnW, h: btnH },
-    { id: "leaderboard", name: "กระดานผู้นำ", x: startX, y: mainStartY + gapY*4, w: btnW, h: btnH } 
+    { id: "story", name: t.story, x: startX, y: mainStartY, w: btnW, h: btnH },
+    { id: "play", name: t.play, x: startX, y: mainStartY + gapY*1, w: btnW, h: btnH },
+    { id: "conclusion", name: t.conclusion, x: startX, y: mainStartY + gapY*2, w: btnW, h: btnH },
+    { id: "rules", name: t.rules, x: startX, y: mainStartY + gapY*3, w: btnW, h: btnH },
+    { id: "leaderboard", name: t.leaderboard, x: startX, y: mainStartY + gapY*4, w: btnW, h: btnH } 
   ];
 
   let levelStartY = height * 0.40;
 
   levelButtons = [
-    { id: "plus", name: "เมืองบวก", op: "+", x: startX, y: levelStartY, w: btnW, h: btnH },
-    { id: "minus", name: "ลบบุรี", op: "-", x: startX, y: levelStartY + gapY*1, w: btnW, h: btnH },
-    { id: "multiply", name: "นคราคูณ", op: "x", x: startX, y: levelStartY + gapY*2, w: btnW, h: btnH },
-    { id: "divide", name: "นครหาร", op: "÷", x: startX, y: levelStartY + gapY*3, w: btnW, h: btnH },
-    { id: "back", name: "ย้อนกลับ", x: startX, y: levelStartY + gapY*4, w: btnW, h: btnH }
+    { id: "plus", name: t.townPlus, op: "+", x: startX, y: levelStartY, w: btnW, h: btnH },
+    { id: "minus", name: t.townMinus, op: "-", x: startX, y: levelStartY + gapY*1, w: btnW, h: btnH },
+    { id: "multiply", name: t.townMultiply, op: "x", x: startX, y: levelStartY + gapY*2, w: btnW, h: btnH },
+    { id: "divide", name: t.townDivide, op: "÷", x: startX, y: levelStartY + gapY*3, w: btnW, h: btnH },
+    { id: "back", name: t.back, x: startX, y: levelStartY + gapY*4, w: btnW, h: btnH }
   ];
 }
 
@@ -706,7 +944,7 @@ function drawPiPCamera() {
 function drawLives() {
   push();
   rectMode(CORNER); 
-  let boxW = 180; 
+  let boxW = 210; 
   let boxH = 45;
   let boxX = width - boxW - 20;
   let boxY = 20; 
@@ -731,16 +969,20 @@ function drawLives() {
   
   let centerX = boxX + boxW / 2;
   let centerY = boxY + boxH / 2;
-  let heartsStr = "";
-  for (let i = 0; i < 5; i++) {
+  
+  let totalHearts = 5;
+  let spacing = 40;
+  let startX = centerX - ((totalHearts - 1) * spacing) / 2;
+  
+  for (let i = 0; i < totalHearts; i++) {
+    let hx = startX + i * spacing;
     if (i < playerLives) {
-      heartsStr += "❤️ ";
+      // Offset red heart slightly because emoji fonts render it higher than the black heart
+      text("❤️", hx + 1, centerY + 5); 
     } else {
-      heartsStr += "🖤 ";
+      text("🖤", hx, centerY + 2);
     }
   }
-  
-  text(heartsStr.trim(), centerX, centerY + 2);
 
   pop();
 }
@@ -788,7 +1030,7 @@ function draw() {
 
   if (currentStage === 4) {
     if (mapImg) {
-      image(mapImg, 0, 0, width, height);
+      drawCoverImage(mapImg);
     }
     drawMapSelection(activeHitboxes);
     drawPiPCamera(); 
@@ -815,7 +1057,7 @@ function draw() {
       else if (selectedCity.id === 'divide') currentBg = bgDivide;
       
       if (currentBg) {
-        image(currentBg, 0, 0, width, height);
+        drawCoverImage(currentBg);
         fill(0, 80); rect(0, 0, width, height); 
       }
       fill(0, 160); noStroke(); rect(0, 0, width, height * 0.16); 
@@ -828,14 +1070,14 @@ function draw() {
   }
   else if (currentStage === 9) {
     if (mapImg) {
-      image(mapImg, 0, 0, width, height); 
+      drawCoverImage(mapImg); 
     }
     drawLeaderboard(activeHitboxes);
     drawPiPCamera(); 
   }
   else if (currentStage === 10) {
     if (mapImg) {
-      image(mapImg, 0, 0, width, height); 
+      drawCoverImage(mapImg); 
     }
     drawSkillSummary(activeHitboxes);
     drawPiPCamera(); 
@@ -873,11 +1115,20 @@ function draw() {
 }
 
 function drawMapSelection(activeHitboxes) {
+  var t = window.gameTexts[window.gameLang];
   if (showRulesOverlay) {
     fill(0, 180); rect(0, 0, width, height);
     if (rulesImg) {
       imageMode(CENTER);
-      image(rulesImg, width/2, height/2, width*0.7, height*0.7);
+      let rImg = (window.gameLang === 'TH') ? rulesImg : rulesImgEN;
+      let imgRatio = rImg.width / rImg.height;
+      let targetW = width * 0.7;
+      let targetH = targetW / imgRatio;
+      if (targetH > height * 0.8) {
+        targetH = height * 0.8;
+        targetW = targetH * imgRatio;
+      }
+      image(rImg, width/2, height/2, targetW, targetH);
       imageMode(CORNER);
     }
     
@@ -894,7 +1145,8 @@ function drawMapSelection(activeHitboxes) {
     textAlign(CENTER, CENTER); textSize(24); 
     text("X", width * 0.83, height * 0.18 - 2);
     
-    if (crossClicked) {
+    if (crossClicked && millis() - lastUIClickTime > 1000) {
+      lastUIClickTime = millis();
       showRulesOverlay = false;
       playInstantSound(btnSoundClick); 
     }
@@ -924,7 +1176,7 @@ function drawMapSelection(activeHitboxes) {
   }
 
   if (mapMode === 'main') {
-    let welcomeText = "✨ ยินดีต้อนรับ ผู้กล้า: " + currentPlayerName + " แห่ง " + currentSchoolName + " ✨";
+    let welcomeText = t.welcome.replace("{name}", currentPlayerName).replace("{school}", currentSchoolName);
     textSize(width * 0.022);
     
     let tw = textWidth(welcomeText);
@@ -997,31 +1249,41 @@ function drawMapSelection(activeHitboxes) {
     let textCenterX = b.x + b.w / 2;
     let textCenterY = b.y + b.h / 2 - 4; 
 
-    let btnText = b.name;
+    let tw = textWidth(b.name);
+    let emojiStr = "";
     if (b.id === "conclusion" && !allTownsCompleted) {
-      btnText = "🔒 " + b.name;
+      emojiStr = t.lockedConclusion;
+      tw += 35; // Safe hardcoded width
     } else if (completedTowns[b.id]) {
-      btnText = "🥇 " + b.name;
-    }
-
-    let tw = textWidth(btnText);
-    let startX = textCenterX - tw / 2;
-
-    if (b.id === "conclusion" && !allTownsCompleted) {
-      text(btnText, startX, textCenterY);
-    } else if (completedTowns[b.id]) {
-      text(btnText, startX, textCenterY);
-
-      fill(255, 215, 0); textSize(width * 0.020);
-      let subText = "✨ พิชิตแล้ว ✨";
-      let sw = textWidth(subText);
-      text(subText, textCenterX - sw / 2, b.y + b.h + 20); 
-      fill(255); textSize(width * 0.025);
-    } else {
-      text(btnText, startX, textCenterY);
+      emojiStr = t.unlockedConclusion;
+      tw += 40; // Safe hardcoded width for medal
     }
     
-    if (isClicked && mapFadeAlpha <= 0) { 
+    let startX = textCenterX - tw / 2;
+
+    try {
+      if (b.id === "conclusion" && !allTownsCompleted) {
+        push(); textFont("sans-serif"); text(emojiStr, startX, textCenterY); pop();
+        text(b.name, startX + 35, textCenterY);
+      } else if (completedTowns[b.id]) {
+        push(); textFont("sans-serif"); text(emojiStr, startX, textCenterY); pop();
+        text(b.name, startX + 40, textCenterY);
+
+        fill(255, 215, 0); textSize(width * 0.020);
+        let subText = t.cleared || "Cleared";
+        let sw = textWidth(subText);
+        text(subText, textCenterX - sw / 2, b.y + b.h + 20); 
+        fill(255); textSize(width * 0.025);
+      } else {
+        text(b.name, startX, textCenterY);
+      }
+    } catch(e) {
+      console.error("Text rendering error:", e);
+      text(b.name, startX, textCenterY);
+    }
+    
+    if (isClicked && mapFadeAlpha <= 0 && millis() - lastUIClickTime > 1000) {
+      lastUIClickTime = millis(); 
       clickedButtonId = b.id;
     }
   }
@@ -1063,7 +1325,7 @@ function drawMapSelection(activeHitboxes) {
           mapMode = 'main';
         });
       } else {
-        alert("ปุ่มบทสรุปล็อกอยู่! ท่านต้องเอาชนะทั้ง 4 เมืองก่อนจึงจะสามารถเปิดได้");
+        alert(t.alertConclusionLocked);
       }
     } 
     else {
@@ -1083,7 +1345,7 @@ function drawMapSelection(activeHitboxes) {
         } else {
           currentStage = 7;
           gameState = 'countdown'; countdownTimer = 3;
-          resultMessage = "เตรียมตะลุยด่าน!"; resultColor = color(255, 215, 0);
+          resultMessage = t.msgReady; resultColor = color(255, 215, 0);
         }
       }
     }
@@ -1091,11 +1353,12 @@ function drawMapSelection(activeHitboxes) {
 }
 
 function drawLeaderboard(activeHitboxes) {
+  let t = window.gameTexts[window.gameLang];
   fill(0, 220); rect(0, 0, width, height);
 
   textSize(48); fill(255, 215, 0); textStyle(BOLD);
   textAlign(LEFT, CENTER);
-  let titleTxt = "🏆 กระดานผู้นำ (Top 10) 🏆";
+  let titleTxt = t.leaderboardTitle;
   let titleW = textWidth(titleTxt);
   text(titleTxt, width / 2 - titleW / 2, height * 0.15);
   textStyle(NORMAL);
@@ -1103,30 +1366,31 @@ function drawLeaderboard(activeHitboxes) {
   if (isFetchingLeaderboard) {
     textSize(32); fill(255);
     textAlign(LEFT, CENTER);
-    let loadTxt = "กำลังโหลดข้อมูลผู้กล้าจากคัมภีร์เวท...";
+    let loadTxt = t.loading;
     let loadW = textWidth(loadTxt);
     text(loadTxt, width / 2 - loadW / 2, height / 2);
   } else {
     textSize(24);
     textAlign(LEFT, CENTER);
     let startY = height * 0.25;
-    let rowH = height * 0.05;
+    let rowH = height * 0.045;
     
     fill(150, 255, 255); textStyle(BOLD);
-    text("อันดับ", width * 0.2, startY);
-    text("ผู้กล้า", width * 0.3, startY);
-    text("โรงเรียน", width * 0.55, startY);
-    text("คะแนน", width * 0.8, startY);
+    text(t.rank, width * 0.2, startY);
+    text(t.name, width * 0.3, startY);
+    text(t.school, width * 0.55, startY);
+    text(t.pts, width * 0.8, startY);
     textStyle(NORMAL);
     
     fill(255);
     if (leaderboardData.length === 0) {
         textAlign(LEFT, CENTER);
-        let emptyTxt = "ยังไม่มีผู้กล้าในบันทึก";
+        let emptyTxt = t.noData;
         let emptyW = textWidth(emptyTxt);
         text(emptyTxt, width / 2 - emptyW / 2, height / 2);
     } else {
-        for (let i = 0; i < leaderboardData.length; i++) {
+        let displayCount = min(10, leaderboardData.length);
+        for (let i = 0; i < displayCount; i++) {
           let d = leaderboardData[i];
           let y = startY + rowH * (i + 1);
           fill(i === 0 ? color(255, 215, 0) : i === 1 ? color(192, 192, 192) : i === 2 ? color(205, 127, 50) : color(255));
@@ -1138,6 +1402,36 @@ function drawLeaderboard(activeHitboxes) {
         }
     }
   }
+
+  // Draw player rank
+  let totalBestScore = highScores.plus + highScores.minus + highScores.multiply + highScores.divide;
+  let myRankIndex = leaderboardData.findIndex(d => d.name === currentPlayerName && d.score === totalBestScore);
+  
+  let myRankText = (myRankIndex !== -1) ? "#" + (myRankIndex + 1) : "-";
+  let labelText = (window.gameLang === 'TH') ? "🌟 อันดับของคุณ 🌟" : "🌟 Your Rank 🌟";
+  
+  let playerY = height * 0.25 + (height * 0.045) * 11.2; // position below top 10
+  
+  // Highlighting box
+  rectMode(CENTER);
+  fill(0, 50, 150, 180); stroke(0, 255, 255); strokeWeight(2);
+  rect(width / 2, playerY, width * 0.75, height * 0.06, 15);
+  rectMode(CORNER);
+  
+  noStroke();
+  
+  // Label above the box
+  fill(255, 215, 0); textAlign(CENTER, BOTTOM); textSize(20); textStyle(BOLD);
+  text(labelText, width / 2, playerY - (height * 0.03) - 5);
+  textStyle(NORMAL);
+  
+  // Data inside the box (Aligned exactly with columns)
+  fill(255); textAlign(LEFT, CENTER); textSize(24);
+  text(myRankText, width * 0.2, playerY);
+  text(currentPlayerName, width * 0.3, playerY);
+  text(currentSchoolName, width * 0.55, playerY);
+  fill(255, 215, 0);
+  text(totalBestScore, width * 0.8, playerY);
 
   let btnW = width * 0.25; if(btnW>350) btnW = 350;
   let btnH = height * 0.08;
@@ -1156,13 +1450,14 @@ function drawLeaderboard(activeHitboxes) {
   rect(btnX, btnY, btnW, btnH, 25);
   
   fill(255, 215, 0); noStroke(); 
-  let tStr = "ย้อนกลับ";
+  let tStr = t.back;
   let tw = textWidth(tStr);
   textAlign(LEFT, CENTER); textSize(24); textStyle(BOLD);
   text(tStr, btnX + btnW/2 - tw/2, btnY + btnH/2 - 4);
   textStyle(NORMAL);
 
-  if (isClicked) {
+  if (isClicked && millis() - lastUIClickTime > 1000) {
+    lastUIClickTime = millis();
     playInstantSound(btnSoundClick);
     currentStage = 4;
     mapMode = 'main';
@@ -1170,10 +1465,11 @@ function drawLeaderboard(activeHitboxes) {
 }
 
 function drawCalibration() {
+  var t = window.gameTexts[window.gameLang];
   if (!window.isCameraOn) {
     currentStage = 7;
     gameState = 'countdown'; countdownTimer = 3;
-    resultMessage = "เตรียมตะลุยด่าน!"; resultColor = color(255, 215, 0);
+    resultMessage = t.msgReady; resultColor = color(255, 215, 0);
     return;
   }
 
@@ -1214,9 +1510,9 @@ function drawCalibration() {
   let textLeftX = boxX + 80;
   let startRowY = boxY + 170;
   
-  fill(head ? color(0, 255, 100) : color(255, 50, 50)); text(head ? "✔ ศรีษะ: พร้อม" : "❌ มองไม่เห็นศรีษะ", textLeftX, startRowY);
-  fill(hands ? color(0, 255, 100) : color(255, 50, 50)); text(hands ? "✔ มือทั้งสองข้าง: พร้อม" : "❌ มองไม่เห็นมือ", textLeftX, startRowY + 55);
-  fill(feet ? color(0, 255, 100) : color(255, 50, 50)); text(feet ? "✔ เท้าและช่วงล่าง: พร้อม" : "❌ มองไม่เห็นเท้า", textLeftX, startRowY + 110);
+  fill(head ? color(0, 255, 100) : color(255, 50, 50)); var t = window.gameTexts[window.gameLang]; text(head ? t.calibHeadReady : t.calibHeadNot, textLeftX, startRowY);
+  fill(hands ? color(0, 255, 100) : color(255, 50, 50)); text(hands ? t.calibHandsReady : t.calibHandsNot, textLeftX, startRowY + 55);
+  fill(feet ? color(0, 255, 100) : color(255, 50, 50)); text(feet ? t.calibFeetReady : t.calibFeetNot, textLeftX, startRowY + 110);
 
   let barY = boxY + boxH - 60;
   noFill(); stroke(255); strokeWeight(2); 
@@ -1231,11 +1527,12 @@ function drawCalibration() {
   if (calibrationProgress >= 100) {
     currentStage = 7;
     gameState = 'countdown'; countdownTimer = 3; 
-    resultMessage = "เริ่มต้นตะลุยด่าน!"; resultColor = color(255, 215, 0);
+    resultMessage = t.msgStart; resultColor = color(255, 215, 0);
   }
 }
 
 function drawGameplay(activeHitboxes) {
+  var t = window.gameTexts[window.gameLang];
   if (gameState === 'countdown') {
     fill(0, 120); rect(0, 0, width, height);
     fill(resultColor); noStroke(); 
@@ -1266,7 +1563,7 @@ function drawGameplay(activeHitboxes) {
       text(bt1, width/2 - btw1/2, height*0.08);
 
       fill(255, 255, 0); textSize(width * 0.035);
-      let bt2 = "เวลาโบนัส: " + bonusTimer + " วินาที";
+      let bt2 = t.bonusTime + bonusTimer + t.sec;
       let btw2 = textWidth(bt2);
       text(bt2, width/2 - btw2/2, height*0.20); 
       
@@ -1306,6 +1603,7 @@ function drawGameplay(activeHitboxes) {
         if (touchedTrap) {
           playInstantSound(soundWrong); 
           score -= 2; 
+          if (score < 0) score = 0;
           trapTargets.splice(i, 1);
           i--;
         } else if (trap.life <= 0) {
@@ -1340,7 +1638,7 @@ function drawGameplay(activeHitboxes) {
         playInstantSound(soundCorrect); 
         score += 2; 
         gameState = 'countdown'; countdownTimer = 3; 
-        resultMessage = "ถูกต้อง! +2"; resultColor = color(0, 255, 100);
+        resultMessage = t.msgCorrect; resultColor = color(0, 255, 100);
       } else if (hitWrong) {
         playInstantSound(soundWrong); 
         timeLeft -= 3;
@@ -1351,7 +1649,7 @@ function drawGameplay(activeHitboxes) {
           currentStage = 8; 
         } else {
           gameState = 'countdown'; countdownTimer = 3; 
-          resultMessage = "ผิด! เวลาลด -3 วินาที"; resultColor = color(255, 50, 50);
+          resultMessage = t.msgWrong; resultColor = color(255, 50, 50);
         }
       }
     }
@@ -1359,10 +1657,10 @@ function drawGameplay(activeHitboxes) {
 
   fill(255); noStroke(); 
   textAlign(LEFT, CENTER); textSize(32);
-  text("คะแนน: " + score, 40, height * 0.06);
+  text(t.scoreText + score, 40, height * 0.06);
   let minPart = floor(timeLeft / 60);
   let secPart = timeLeft % 60;
-  text("เวลาเหลือ: " + minPart + " นาที " + secPart + " วินาที", 40, height * 0.12);
+  text(t.timeLeftFormat.replace("{min}", minPart).replace("{sec}", secPart), 40, height * 0.12);
 
   let btnRadius = 35;
   let exitBtnX = width - 70;
@@ -1385,24 +1683,26 @@ function drawGameplay(activeHitboxes) {
   
   textSize(18); 
   textAlign(LEFT, CENTER);
-  let pTxt = isPaused ? "เล่นต่อ" : "พักเกม";
+  let pTxt = isPaused ? t.resumeBtn : t.pauseBtn;
   let pw = textWidth(pTxt);
   text(pTxt, pauseBtnX - pw/2, pauseBtnY - 2);
 
   fill(exitHover ? color(255, 120, 120, 200) : color(255, 80, 80, 180)); 
   circle(exitBtnX, exitBtnY, btnRadius*2);
   fill(255); 
-  let eTxt = "ออก";
+  let eTxt = t.exitBtn;
   let ew = textWidth(eTxt);
   text(eTxt, exitBtnX - ew/2, exitBtnY - 2);
 
-  if (exitClicked) {
+  if (exitClicked && millis() - lastUIClickTime > 1000) {
+    lastUIClickTime = millis();
     playInstantSound(btnSoundClick); 
     currentStage = 4;
     mapMode = 'levels'; 
   }
   
-  if (pauseClicked) {
+  if (pauseClicked && millis() - lastUIClickTime > 1000) {
+    lastUIClickTime = millis();
     playInstantSound(btnSoundClick); 
     isPaused = !isPaused; 
   }
@@ -1425,7 +1725,7 @@ function drawGameOver(activeHitboxes) {
   else if (selectedCity && selectedCity.id === 'divide') currentBg = bgDivide;
 
   if (currentBg) {
-    image(currentBg, 0, 0, width, height);
+    drawCoverImage(currentBg);
   }
 
   fill(0, 200); rect(0, 0, width, height);
@@ -1448,69 +1748,112 @@ function drawGameOver(activeHitboxes) {
 
   textAlign(CENTER, CENTER);
   textSize(56); 
-  let goT1 = "ภารกิจสิ้นสุด!";
+  var t = window.gameTexts[window.gameLang];
+  let goT1 = t.gameOverTitle;
   text(goT1, width / 2, height / 2 - 140);
 
   textSize(36); fill(255, 215, 0);
-  text(`ผู้เล่น: ${currentPlayerName} \nด่าน: ${selectedCity.name}`, width / 2, height / 2 - 40);
+  var t = window.gameTexts[window.gameLang]; 
+  let stageName = selectedCity.name;
+  if (selectedCity.id === 'plus') stageName = t.townPlus;
+  else if (selectedCity.id === 'minus') stageName = t.townMinus;
+  else if (selectedCity.id === 'multiply') stageName = t.townMultiply;
+  else if (selectedCity.id === 'divide') stageName = t.townDivide;
+  
+  let cleanStagePrefix = t.stagePrefix.replace("\n", " ");
+  
+  // Draw player and stage name separated for better layout
+  textAlign(CENTER, CENTER);
+  text(`${t.playerPrefix}${currentPlayerName}`, width / 2, height / 2 - 60);
+  text(`${cleanStagePrefix}${stageName}`, width / 2, height / 2 - 20);
   
   textSize(28); fill(255);
-  text(`คะแนนในรอบนี้: ${score} คะแนน \nคะแนนสูงสุดที่ทำได้ในด่านนี้: ${highScores[selectedCity.id]} คะแนน`, width / 2, height / 2 + 50);
+  
+  // Split roundScore by newline so each line is perfectly centered individually
+  let rawScoreText = t.roundScore.replace("{score}", score).replace("{highScore}", highScores[selectedCity.id]);
+  let scoreLines = rawScoreText.split("\n");
+  
+  if (scoreLines.length > 1) {
+    text(scoreLines[0].trim(), width / 2, height / 2 + 40);
+    text(scoreLines[1].trim(), width / 2, height / 2 + 80);
+  } else {
+    text(rawScoreText.trim(), width / 2, height / 2 + 60);
+  }
 
-  let statusText = completedTowns[selectedCity.id] ? "✨ ผ่านด่านเรียบร้อย ✨" : "❌ ยังไม่ผ่านด่าน (ต้องได้ 30 คะแนนขึ้นไป)";
+  let statusText = completedTowns[selectedCity.id] ? t.statusPass : t.statusFail;
   let scoreColor = completedTowns[selectedCity.id] ? color(0, 255, 100) : color(255, 100, 100);
   textSize(24); fill(scoreColor);
-  text(statusText, width / 2, height / 2 + 120);
+  text(statusText, width / 2, height / 2 + 140);
 
-  let btnW = width * 0.25; if(btnW>350) btnW = 350;
+  // Navigation Buttons (YouTube & Back to Map)
+  let btnW = width * 0.22; if(btnW>300) btnW = 300;
   let btnH = height * 0.08;
-  
-  let btnX = width / 2 - btnW / 2;
+  let gap = 30;
+  let totalW = btnW * 2 + gap;
   let btnY = height / 2 + 180; 
 
-  let isHover = (mouseX > btnX && mouseX < btnX + btnW && mouseY > btnY && mouseY < btnY + btnH);
-  let isClicked = false;
+  let btnX_yt = width / 2 - totalW / 2;
+  let btnX_map = width / 2 + gap / 2;
+
+  let hoverYt = (mouseX > btnX_yt && mouseX < btnX_yt + btnW && mouseY > btnY && mouseY < btnY + btnH);
+  let hoverMap = (mouseX > btnX_map && mouseX < btnX_map + btnW && mouseY > btnY && mouseY < btnY + btnH);
+  let clickYt = false, clickMap = false;
+
   for (let h of activeHitboxes) {
-    if (h.x > btnX && h.x < btnX + btnW && h.y > btnY && h.y < btnY + btnH) { isHover = true; isClicked = true; }
+    if (h.x > btnX_yt && h.x < btnX_yt + btnW && h.y > btnY && h.y < btnY + btnH) { hoverYt = true; clickYt = true; }
+    if (h.x > btnX_map && h.x < btnX_map + btnW && h.y > btnY && h.y < btnY + btnH) { hoverMap = true; clickMap = true; }
   }
 
   rectMode(CORNER);
-  drawingContext.shadowBlur = 20;
-  drawingContext.shadowColor = '#FFD700'; 
-  fill(isHover ? color(40,40,40,240) : color(0,0,0,220));
-  stroke(255, 215, 0); strokeWeight(4); 
-  rect(btnX, btnY, btnW, btnH, 25);
-  drawingContext.shadowBlur = 0; 
+  
+  // YouTube Button
+  fill(hoverYt ? color(200,40,40,240) : color(150,0,0,220));
+  stroke(255, 100, 100); strokeWeight(4); 
+  rect(btnX_yt, btnY, btnW, btnH, 25);
+  fill(255); noStroke(); textSize(24); textStyle(BOLD); textAlign(CENTER, CENTER);
+  text("📺 " + t.learnSource, btnX_yt + btnW/2, btnY + btnH/2 - 4);
 
-  fill(255, 215, 0); noStroke(); 
-  textSize(24); textStyle(BOLD);
-  textAlign(LEFT, CENTER);
-  let finalTxt = "กลับสู่หน้าพิภพแผนที่";
-  let finalW = textWidth(finalTxt);
-  text(finalTxt, btnX + btnW/2 - finalW/2, btnY + btnH/2 - 4); 
+  // Return to Map Button
+  drawingContext.shadowBlur = hoverMap ? 20 : 0;
+  drawingContext.shadowColor = '#FFD700';
+  fill(hoverMap ? color(40,40,40,240) : color(0,0,0,220));
+  stroke(255, 215, 0); strokeWeight(4); 
+  rect(btnX_map, btnY, btnW, btnH, 25);
+  drawingContext.shadowBlur = 0;
+  
+  fill(255, 215, 0); noStroke(); textSize(24); textStyle(BOLD); textAlign(CENTER, CENTER);
+  text(t.btnBackMap, btnX_map + btnW/2, btnY + btnH/2 - 4);
+  
   textStyle(NORMAL);
 
-  if (isClicked) {
-    playInstantSound(btnSoundClick); 
-    
-    updateAllTownsCompleted();
-    
-    if (allTownsCompleted && !hasSeenSummaryThisSession) {
-      currentStage = 10;
-      mapMode = 'main';
-      hasSeenSummaryThisSession = true;
-    } else {
-      currentStage = 4; 
-      mapMode = 'levels'; 
+  if (millis() - lastUIClickTime > 1000) {
+    if (clickYt) {
+      lastUIClickTime = millis();
+      playInstantSound(btnSoundClick);
+      openYouTubePopup('jHY9lC1lrF0');
+    } else if (clickMap) {
+      lastUIClickTime = millis();
+      playInstantSound(btnSoundClick);
+      
+      updateAllTownsCompleted();
+      
+      if (allTownsCompleted && !hasSeenSummaryThisSession) {
+        currentStage = 10;
+        mapMode = 'main';
+        hasSeenSummaryThisSession = true;
+      } else {
+        currentStage = 4; 
+        mapMode = 'levels'; 
+      }
+      restartMapMusic();
     }
-    restartMapMusic(); 
   }
 }
 
 function getAiHitboxes() {
   let hitboxes = [];
   
-  if (currentStage === 7 && window.isCameraOn && poses.length > 0 && video && video.width > 0) {
+  if ([4, 7, 8, 9, 10].includes(currentStage) && window.isCameraOn && poses.length > 0 && video && video.width > 0) {
     let pose = poses[0];
     
     let targetJoints = [
@@ -1542,6 +1885,7 @@ function getAiHitboxes() {
 function gotPoses(results) { poses = results; }
 
 function timeIt() {
+  var t = window.gameTexts[window.gameLang];
   if (currentStage === 7 && gameState === 'playing' && !isPaused) { 
     if (bonusMode === "bonus_time") {
       bonusTimer--;
@@ -1553,7 +1897,7 @@ function timeIt() {
          
          gameState = 'countdown';
          countdownTimer = 3;
-         resultMessage = "เตรียมตะลุยด่าน!";
+         resultMessage = t.msgReady;
          resultColor = color(255, 215, 0);
       }
     } else {
@@ -1603,7 +1947,7 @@ function drawSkillSummary(activeHitboxes) {
 
   textSize(48); fill(255, 215, 0); textStyle(BOLD);
   textAlign(CENTER, CENTER);
-  text("✨ สรุปทักษะคณิตศาสตร์ ✨", width / 2, height * 0.12);
+  var t = window.gameTexts[window.gameLang]; text(t.summaryMainTitle, width / 2, height * 0.12);
   textStyle(NORMAL);
 
   let sP = highScores.plus || 0;
@@ -1691,17 +2035,17 @@ function drawSkillSummary(activeHitboxes) {
 
   // Helper functions for tips
   function getBestTip(skill) {
-    if (skill === "บวก") return "เทคนิค: คุณบวกเลขได้ไวมาก! ลองฝึกจับคู่ให้ครบ 10 ในใจเสมอจะยิ่งเร็วขึ้น";
-    if (skill === "ลบ") return "เทคนิค: การหักล้างของคุณแม่นยำมาก ลองใช้วิธี 'นับต่อ' ในเลขหลักร้อยดูสิ";
-    if (skill === "คูณ") return "เทคนิค: คุณมีพรสวรรค์การคูณ! ลองแยกตัวประกอบเวลาคูณเลขเยอะๆ ดูนะ";
-    if (skill === "หาร") return "เทคนิค: คุณแบ่งตัวเลขได้เฉียบขาดมาก เป็นทักษะขั้นสูงเลยทีเดียว!";
+    var t = window.gameTexts[window.gameLang]; if (skill === "บวก") return t.t_add_best;
+    if (skill === "ลบ") return t.t_sub_best;
+    if (skill === "คูณ") return t.t_mul_best;
+    if (skill === "หาร") return t.t_div_best;
     return "";
   }
   function getWorstTip(skill) {
-    if (skill === "บวก") return "คำแนะนำ: ลองจับคู่ตัวเลขให้ครบ 10 ก่อน แล้วค่อยบวกส่วนที่เหลือดูนะ";
-    if (skill === "ลบ") return "คำแนะนำ: ลองใช้วิธี 'นับจากตัวลบไปหาตัวตั้ง' จะช่วยให้คิดง่ายกว่าหักออก";
-    if (skill === "คูณ") return "คำแนะนำ: ท่องสูตรคูณแม่ 2-9 ให้คล่องเป็นจังหวะ จะช่วยให้จำได้แม่นขึ้น";
-    if (skill === "หาร") return "คำแนะนำ: การหารคือการคูณย้อนกลับ ลองนึกว่า 'เลขอะไรคูณกันแล้วได้เท่านี้' ดูสิ";
+    var t = window.gameTexts[window.gameLang]; if (skill === "บวก") return t.t_add_worst;
+    if (skill === "ลบ") return t.t_sub_worst;
+    if (skill === "คูณ") return t.t_mul_worst;
+    if (skill === "หาร") return t.t_div_worst;
     return "";
   }
 
@@ -1712,27 +2056,27 @@ function drawSkillSummary(activeHitboxes) {
   textAlign(LEFT, TOP);
   
   textSize(32); fill(255, 215, 0); textStyle(BOLD);
-  text("ผลการประเมินทักษะ", txtX, txtY);
+  var t = window.gameTexts[window.gameLang]; text(t.evalTitle, txtX, txtY);
   textStyle(NORMAL);
   
   textSize(24); fill(255);
-  text("⭐ คะแนนสูงสุดที่ทำได้ในแต่ละด่าน:", txtX, txtY + 40);
+  text(t.evalMax, txtX, txtY + 40);
   fill(200);
-  text("➕ การบวก: " + sP + " คะแนน", txtX + 20, txtY + 70);
-  text("➖ การลบ: " + sM + " คะแนน", txtX + 20, txtY + 95);
-  text("✖️ การคูณ: " + sX + " คะแนน", txtX + 20, txtY + 120);
-  text("➗ การหาร: " + sD + " คะแนน", txtX + 20, txtY + 145);
+  text(t.evalPlus + sP + t.evalPts, txtX + 20, txtY + 70);
+  text(t.evalMinus + sM + t.evalPts, txtX + 20, txtY + 95);
+  text(t.evalMul + sX + t.evalPts, txtX + 20, txtY + 120);
+  text(t.evalDiv + sD + t.evalPts, txtX + 20, txtY + 145);
   
   fill(0, 255, 100);
-  text("🏆 จุดแข็ง: การ" + bestStr, txtX, txtY + 185);
+  text(t.evalStrong + bestStr.replace("บวก", t.add).replace("ลบ", t.sub).replace("คูณ", t.mul).replace("หาร", t.div), txtX, txtY + 185);
   fill(180, 255, 180); textSize(20);
   text("💬 " + getBestTip(bestSingle), txtX + 20, txtY + 215, wrapWidth);
 
   fill(255, 100, 100); textSize(24);
   if (minS === maxS && maxS > 0) {
-    text("🎯 ทักษะทุกด้านสมดุลกันเป็นอย่างดี!", txtX, txtY + 275);
+    text(t.evalAllGood, txtX, txtY + 275);
   } else {
-    text("💡 ข้อควรพัฒนา: การ" + worstStr, txtX, txtY + 275);
+    text(t.evalWeak + worstStr.replace("บวก", t.add).replace("ลบ", t.sub).replace("คูณ", t.mul).replace("หาร", t.div), txtX, txtY + 275);
     fill(255, 180, 180); textSize(20);
     text("💬 " + getWorstTip(worstSingle), txtX + 20, txtY + 305, wrapWidth);
     
@@ -1742,48 +2086,87 @@ function drawSkillSummary(activeHitboxes) {
     rect(txtX + 15, exY, wrapWidth - 10, 85, 10);
     
     fill(0); textSize(18); textStyle(BOLD); textAlign(LEFT, TOP);
-    text("✍️ ตัวอย่างการคิดลัด:", txtX + 30, exY + 10);
+    text(t.evalShortcut, txtX + 30, exY + 10);
     textStyle(NORMAL); textSize(18); fill(60);
     
     let tipLineY = exY + 35;
     if (worstSingle === "บวก") {
-      text("8 + 5  ➔  แยก 5 เป็น 2+3\n➔  (8+2) + 3  ➔  10 + 3 = 13", txtX + 30, tipLineY);
+      text(t.s_add, txtX + 30, tipLineY);
     } else if (worstSingle === "ลบ") {
-      text("13 - 8  ➔  นับ 8 ไป 10 (ได้ 2)\n➔  นับเพิ่มอีก 3  ➔  2+3 = 5", txtX + 30, tipLineY);
+      text(t.s_sub, txtX + 30, tipLineY);
     } else if (worstSingle === "คูณ") {
-      text("12 x 5  ➔  แยก 12 เป็น 10+2\n➔  (10x5) + (2x5)  ➔  60", txtX + 30, tipLineY);
+      text(t.s_mul, txtX + 30, tipLineY);
     } else if (worstSingle === "หาร") {
-      text("42 ÷ 6  ➔  นึกว่า 6 x ? = 42\n➔  6 x 7 = 42  ➔  คำตอบคือ 7", txtX + 30, tipLineY);
+      text(t.s_div, txtX + 30, tipLineY);
     }
   }
   
-  // Navigation Button
-  let btnW = width * 0.25; if(btnW>350) btnW = 350;
+  // Navigation Buttons (YouTube & Back to Map)
+  let btnW = width * 0.22; if(btnW>300) btnW = 300;
   let btnH = height * 0.08;
-  let btnX = width / 2 - btnW / 2; let btnY = height * 0.88; // Lowered button slightly
+  let gap = 30;
+  let totalW = btnW * 2 + gap;
+  let btnY = height * 0.88; 
 
-  let isHover = (mouseX > btnX && mouseX < btnX + btnW && mouseY > btnY && mouseY < btnY + btnH);
-  let isClicked = false;
+  let btnX_yt = width / 2 - totalW / 2;
+  let btnX_map = width / 2 + gap / 2;
+
+  let hoverYt = (mouseX > btnX_yt && mouseX < btnX_yt + btnW && mouseY > btnY && mouseY < btnY + btnH);
+  let hoverMap = (mouseX > btnX_map && mouseX < btnX_map + btnW && mouseY > btnY && mouseY < btnY + btnH);
+  let clickYt = false, clickMap = false;
+
   for (let h of activeHitboxes) {
-    if (h.x > btnX && h.x < btnX + btnW && h.y > btnY && h.y < btnY + btnH) { isHover = true; isClicked = true; break; }
+    if (h.x > btnX_yt && h.x < btnX_yt + btnW && h.y > btnY && h.y < btnY + btnH) { hoverYt = true; clickYt = true; }
+    if (h.x > btnX_map && h.x < btnX_map + btnW && h.y > btnY && h.y < btnY + btnH) { hoverMap = true; clickMap = true; }
   }
 
   rectMode(CORNER);
-  fill(isHover ? color(40,40,40,240) : color(0,0,0,220));
-  stroke(255, 215, 0); strokeWeight(4); 
-  rect(btnX, btnY, btnW, btnH, 25);
   
-  fill(255, 215, 0); noStroke(); 
-  textSize(24); textStyle(BOLD);
-  textAlign(LEFT, CENTER);
-  let bTxt = "กลับสู่หน้าพิภพแผนที่";
-  let btw = textWidth(bTxt);
-  text(bTxt, btnX + btnW/2 - btw/2, btnY + btnH/2 - 4);
+  // YouTube Button
+  fill(hoverYt ? color(200,40,40,240) : color(150,0,0,220));
+  stroke(255, 100, 100); strokeWeight(4); 
+  rect(btnX_yt, btnY, btnW, btnH, 25);
+  fill(255); noStroke(); textSize(24); textStyle(BOLD); textAlign(CENTER, CENTER);
+  text("📺 " + t.learnSource, btnX_yt + btnW/2, btnY + btnH/2 - 4);
+
+  // Return to Map Button
+  fill(hoverMap ? color(40,40,40,240) : color(0,0,0,220));
+  stroke(255, 215, 0); strokeWeight(4); 
+  rect(btnX_map, btnY, btnW, btnH, 25);
+  fill(255, 215, 0); noStroke(); textSize(24); textStyle(BOLD); textAlign(CENTER, CENTER);
+  text(t.btnBackMap, btnX_map + btnW/2, btnY + btnH/2 - 4);
+  
   textStyle(NORMAL);
 
-  if (isClicked) {
-    playInstantSound(btnSoundClick);
-    currentStage = 4;
-    mapMode = 'main';
+  if (millis() - lastUIClickTime > 1000) {
+    if (clickYt) {
+      lastUIClickTime = millis();
+      playInstantSound(btnSoundClick);
+      openYouTubePopup('jHY9lC1lrF0');
+    } else if (clickMap) {
+      lastUIClickTime = millis();
+      playInstantSound(btnSoundClick);
+      currentStage = 4;
+      mapMode = 'main';
+    }
   }
+}
+function drawCoverImage(img) {
+  if (!img || img.width === 0 || img.height === 0) return;
+  let imgRatio = img.width / img.height;
+  let screenRatio = width / height;
+  let drawW, drawH, drawX, drawY;
+  
+  if (screenRatio > imgRatio) {
+    drawW = width;
+    drawH = width / imgRatio;
+    drawX = 0;
+    drawY = (height - drawH) / 2;
+  } else {
+    drawH = height;
+    drawW = height * imgRatio;
+    drawX = (width - drawW) / 2;
+    drawY = 0;
+  }
+  image(img, drawX, drawY, drawW, drawH);
 }
